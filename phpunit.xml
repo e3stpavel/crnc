@@ -6,8 +6,8 @@
         enforceTimeLimit="true"
         beStrictAboutChangesToGlobalState="true">
     <testsuites>
-        <testsuite name="CRNC Test">
-            <directory>tests</directory>
+        <testsuite name="Test Suite">
+            <directory>test</directory>
         </testsuite>
     </testsuites>
 </phpunit>

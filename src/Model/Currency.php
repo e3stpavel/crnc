@@ -1,115 +1,42 @@
 <?php
 
+namespace App\Model;
+
+use DateTime;
+
 class Currency
 {
-	private string $code;
+    // default values are for EUR
+    // working like an id field
+    public string $code;
 
-	private string $name;
+    public string $name;
 
-	private float $rate;
+    public float $rate;
 
-	private DateTime $dateTime;
+    public DateTime $date;
 
-	private float $amount;
+    /**
+     * @param string $code
+     * @param string $name
+     * @param float $rate
+     * @param DateTime $date
+     */
+    public function __construct(
+        string   $code,
+        string   $name,
+        float    $rate,
+        DateTime $date
+    ) {
+        $this->code = $code;
+        $this->name = $name;
+        $this->rate = $rate;
+        $this->date = $date;
+    }
 
-	private string | null $flagCode;
-
-	/**
-	 * @param string $code
-	 * @param string $name
-	 * @param float $rate
-	 * @param DateTime $dateTime
-	 * @param float $amount
-	 * @param string|null $flagCode
-	 */
-	public function __construct(
-		?string $flagCode,
-		string $code,
-		string $name,
-		float $rate,
-		DateTime $dateTime,
-		float $amount
-	)
-	{
-		$this->code = $code;
-		$this->name = $name;
-		$this->rate = $rate;
-		$this->dateTime = $dateTime;
-		$this->amount = $amount;
-		$this->flagCode = $flagCode;
-	}
-
-	/**
-	 * @return float
-	 */
-	public function getRate(): float
-	{
-		return $this->rate;
-	}
-
-	/**
-	 * @param float $rate
-	 */
-	public function setRate(float $rate): void
-	{
-		$this->rate = $rate;
-	}
-
-	/**
-	 * @return DateTime
-	 */
-	public function getDateTime(): DateTime
-	{
-		return $this->dateTime;
-	}
-
-	/**
-	 * @param DateTime $dateTime
-	 */
-	public function setDateTime(DateTime $dateTime): void
-	{
-		$this->dateTime = $dateTime;
-	}
-
-	/**
-	 * @return float
-	 */
-	public function getAmount(): float
-	{
-		return $this->amount;
-	}
-
-	/**
-	 * @param float $amount
-	 */
-	public function setAmount(float $amount): void
-	{
-		$this->amount = $amount;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getCode(): string
-	{
-		return $this->code;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getName(): string
-	{
-		return $this->name;
-	}
-
-	/**
-	 * @return string|null
-	 */
-	public function getFlagCode(): ?string
-	{
-		return $this->flagCode;
-	}
-
-
+    /*public function exchangeToEur(): Currency
+    {
+        // $now = new DateTime('now');
+        $eur = new Currency($now);
+    }*/
 }
