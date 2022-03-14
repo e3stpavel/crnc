@@ -2,6 +2,8 @@
 
 namespace App\Util;
 
+use Exception;
+
 class Router
 {
     private static array $routes = [];
@@ -70,6 +72,7 @@ class Router
 
     /**
      * @return void
+     * @throws Exception
      */
     public function call(): void
     {
@@ -86,6 +89,7 @@ class Router
             $controllerObject->$controllerMethod();
         } else {
             // 404 page return in here
+
             $view = new View('404');
             $view->show();
         }
