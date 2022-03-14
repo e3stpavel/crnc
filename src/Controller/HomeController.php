@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\View\View;
 
-class IndexController
+class HomeController
 {
     public function index(): void
     {

@@ -23,7 +23,10 @@
     "scripts": {
         "phpunit": ".\\vendor\\bin\\phpunit --configuration phpunit.xml",
         "start": "php public\\index.php",
-        "serve": "php -S localhost:8080 -t public/",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "php -S localhost:8080 -t public/"
+        ],
         "test": [
             ".\\vendor\\bin\\phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src test",
             ".\\vendor\\bin\\phpunit --configuration phpunit.xml"
