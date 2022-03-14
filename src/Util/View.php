@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View;
+namespace App\Util;
 
 class View
 {
@@ -18,11 +18,14 @@ class View
         $this->vars = $vars;
     }
 
+    /**
+     * @return void
+     */
     public function show(): void
     {
         extract($this->vars);
 
         $name = $this->name;
-        require __DIR__ . "\\$name.php";
+        require __DIR__ . "\\..\\..\\resources\\views\\$name.php";
     }
 }

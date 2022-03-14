@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
-use App\View\View;
+use App\Util\View;
 
 class HomeController
 {
+    /**
+     * @return void
+     */
     public function index(): void
     {
         $view = new View('home');

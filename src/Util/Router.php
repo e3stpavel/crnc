@@ -68,6 +68,9 @@ class Router
         return $result;
     }
 
+    /**
+     * @return void
+     */
     public function call(): void
     {
         $match = $this->match();
@@ -83,7 +86,8 @@ class Router
             $controllerObject->$controllerMethod();
         } else {
             // 404 page return in here
-            echo "404" . PHP_EOL;
+            $view = new View('404');
+            $view->show();
         }
     }
 }
