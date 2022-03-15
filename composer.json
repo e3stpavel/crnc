@@ -3,8 +3,13 @@
     "description": "Currency converter PHP based.",
     "type": "project",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "e3stpavel",
+            "homepage": "https://github.com/e3stpavel"
+        }
+    ],
     "require": {
-        "ext-pdo": "*",
         "eftec/bladeone": "^4.5"
     },
     "require-dev": {
@@ -23,7 +28,6 @@
     },
     "scripts": {
         "phpunit": ".\\vendor\\bin\\phpunit --configuration phpunit.xml",
-        "start": "php public\\index.php",
         "serve": [
             "Composer\\Config::disableProcessTimeout",
             "php -S localhost:8080 -t public/"

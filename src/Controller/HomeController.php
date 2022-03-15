@@ -13,8 +13,9 @@ class HomeController
      */
     public function index(): void
     {
-        $name = "my";
-        $view = new View('home', array($name));
-        $view->show();
+        // $name = array("who" => "my", "what" => "knees");
+        $name = array("my", "ne");
+
+        View::show('home', $name, "name");
     }
 }

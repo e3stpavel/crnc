@@ -7,45 +7,41 @@ use Exception;
 
 class View
 {
-    private string $name;
+    private static string $views = __DIR__ . "\\..\\..\\resources\\views\\";
 
-    private array $vars;
-
-    protected string $views;
-
-    protected string $cache;
-
-    private object $blade;
+    private static string $cache = __DIR__ . "\\..\\..\\compiled\\cache\\";
 
     /**
-     * @param string $name
-     * @param array $vars
-     */
-    public function __construct(string $name, array $vars = [])
-    {
-        // TODO: fix the path
-        $views = __DIR__ . "\\..\\..\\resources\\views\\$name.php";
-        $cache = __DIR__ . "..\\..\\..\\compiled\\cache\\";
-        $this->name = $name;
-        $this->vars = $vars;
-        $this->views = $views;
-        $this->cache = $cache;
-        $this->blade = new BladeOne($this->views, $this->cache, BladeOne::MODE_DEBUG);
-    }
-
-    /**
-     * @return void
+     * @param string $name View name, should be placed under resource/views/
+     * @param array $vars Must be an associative array with keys
+     * @param string $varsName If array is sequential, then provide a name which will be available in blade file
      * @throws Exception
      */
-    public function show(): void
+    public static function show(string $name, array $vars = [], string $varsName = "vars"): void
     {
-        // extract($this->vars);
+        $blade = new BladeOne(self::$views, self::$cache, BladeOne::MODE_DEBUG);
 
-        /*$name = $this->name;
-        require __DIR__ . "\\..\\..\\resources\\views\\$name.php";*/
+        $blade->setView($name);
 
-        echo $this->blade->setView($this->name)
-            ->share($this->vars)
-            ->run();
+        // if vars array not empty
+        if (count($vars) > 0) {
+            // if vars array os not associative then make it associative
+            if (!self::isVarsAssoc($vars)) {
+                $vars = array($varsName => $vars);
+            }
+
+            $blade->share($vars);
+        }
+
+        echo $blade->run();
+    }
+
+    private static function isVarsAssoc(array $vars): bool
+    {
+        if (array() === $vars) {
+            return false;
+        }
+
+        return array_keys($vars) !== range(0, count($vars) - 1);
     }
 }

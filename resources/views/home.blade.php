@@ -1,4 +1,4 @@
 <body>
     <div>Home</div>
-    <div>{{ $vars }}</div>
+    <div>{{ $name[1] }}</div>
 </body>

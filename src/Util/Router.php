@@ -27,7 +27,7 @@ class Router
      * @param string $method
      * @param array $callback
      */
-    public static function addRoute(string $uri, string $method, array $callback): void
+    public static function add(string $uri, string $method, array $callback): void
     {
         self::$routes[] = [
             'uri' => $uri,
@@ -42,7 +42,7 @@ class Router
      */
     public static function get(string $uri, array $callback): void
     {
-        self::addRoute($uri, 'GET', $callback);
+        self::add($uri, 'GET', $callback);
     }
 
     /**
@@ -51,7 +51,7 @@ class Router
      */
     public static function post(string $uri, array $callback) : void
     {
-        self::addRoute($uri, 'POST', $callback);
+        self::add($uri, 'POST', $callback);
     }
 
     /**
@@ -89,9 +89,7 @@ class Router
             $controllerObject->$controllerMethod();
         } else {
             // 404 page return in here
-
-            $view = new View('404');
-            $view->show();
+            View::show('404');
         }
     }
 }
