@@ -11,7 +11,7 @@ class HomeController
      * @return void
      * @throws Exception
      */
-    public function index(): void
+    public static function index(): void
     {
         // $name = array("who" => "my", "what" => "knees");
         $name = array("my", "god");

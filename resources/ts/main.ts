@@ -6,3 +6,7 @@ import 'windi-utilities.css'
 // import 'virtual:windi-devtools'
 
 // const app = document.querySelector<HTMLDivElement>('#app')!
+//
+// app.innerHTML += `
+//     <div class="bg-black text-white">hello</div>
+// `
