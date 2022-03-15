@@ -28,6 +28,10 @@
     },
     "scripts": {
         "phpunit": ".\\vendor\\bin\\phpunit --configuration phpunit.xml",
+        "vite": [
+            "Composer\\Config::disableProcessTimeout",
+            "npm run dev"
+        ],
         "serve": [
             "Composer\\Config::disableProcessTimeout",
             "php -S localhost:8080 -t public/"

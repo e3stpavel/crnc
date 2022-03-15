@@ -77,6 +77,7 @@ class Router
     public function call(): void
     {
         $match = $this->match();
+
         $callback = $match['callback'];
 
         if (isset($callback) && is_callable($callback)) {
