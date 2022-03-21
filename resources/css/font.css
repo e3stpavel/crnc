@@ -1,0 +1,27 @@
+@font-face {
+  font-family: 'Guaruja Grotesk';
+  font-weight: 400;
+  /*noinspection CssUnknownTarget*/
+  src: url('./assets/fonts/Guaruja-Grotesk-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Neue Machina';
+  font-weight: 400;
+  /*noinspection CssUnknownTarget*/
+  src: url('./assets/fonts/Neue-Machina-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Hauora';
+  font-weight: 400;
+  /*noinspection CssUnknownTarget*/
+  src: url('./assets/fonts/Hauora-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Hauora';
+  font-weight: 600;
+  /*noinspection CssUnknownTarget*/
+  src: url('./assets/fonts/Hauora-SemiBold.woff2') format('woff2');
+}

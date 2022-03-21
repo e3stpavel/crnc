@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint ."
   },
   "devDependencies": {
     "@types/node": "^17.0.21",
@@ -13,5 +14,9 @@
     "vite": "^2.8.0",
     "vite-plugin-windicss": "^1.8.3",
     "windicss": "^3.5.1"
+  },
+  "dependencies": {
+    "@antfu/eslint-config": "^0.18.9",
+    "eslint": "^8.11.0"
   }
 }

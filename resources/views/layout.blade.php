@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title')</title>
 
+  <link rel="preload" href="./assets/fonts/Guaruja-Grotesk-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./assets/fonts/Neue-Machina-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./assets/fonts/Hauora-Regular.woff2" as="font" type="font/woff2" crossorigin>
+
   {{--Only For Development Use --}}
   <script type="module" src="http://localhost:3000/@vite/client"></script>
   <script type="module" src="http://localhost:3000/resources/ts/main.ts"></script>

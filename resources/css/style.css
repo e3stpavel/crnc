@@ -1,9 +1,76 @@
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+@import './font.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font-size: 1.1111111111111112vw;
+  font-family: 'Hauora', ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  min-height: 100vh;
-  color: #2c3e50;
-  @apply bg-blue-100 py-12;
+}
+
+#app {
+  max-width: 1560px;
+  margin: 0 auto;
+}
+
+h1 {
+  /*font-size: 3.375em;*/
+  font-family: 'Guaruja Grotesk';
+  @apply text-2xl tracking-normal leading-normal;
+}
+
+h3 {
+  font-family: 'Guaruja Grotesk';
+  @apply text-xl tracking-normal leading-normal;
+}
+
+h6 {
+  font-family: 'Neue Machina';
+  text-transform: uppercase;
+  @apply text-base tracking-wide leading-normal opacity-60;
+}
+
+text {
+  font-family: 'Hauora';
+  @apply text-lg tracking-normal leading-normal;
+}
+
+p {
+  font-family: 'Hauora';
+  @apply text-base tracking-normal leading-normal;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#border {
+  width: calc(100% - (5.75em + 5.75em));
+}
+
+.dot {
+  font-family: 'Hauora';
+  @apply text-base tracking-wide leading-normal;
+}
+
+/* Max Font Size */
+@media screen and (min-width: 1560px) {
+  body {
+    font-size: 17.333333333333332px;
+  }
+}
+
+/* Min Font Size */
+@media screen and (max-width: 840px) {
+  body {
+    font-size: 9.333333333333334px;
+  }
 }
