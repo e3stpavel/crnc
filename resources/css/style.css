@@ -18,12 +18,13 @@ body {
 #app {
   max-width: 1560px;
   margin: 0 auto;
+  @apply scroll-smooth;
 }
 
 h1 {
   /*font-size: 3.375em;*/
   font-family: 'Guaruja Grotesk';
-  @apply text-2xl tracking-normal leading-normal;
+  @apply text-3xl tracking-normal leading-normal;
 }
 
 h3 {
@@ -42,6 +43,11 @@ text {
   @apply text-lg tracking-normal leading-normal;
 }
 
+label {
+  font-family: 'Hauora';
+  @apply text-lg tracking-normal leading-normal font-600;
+}
+
 p {
   font-family: 'Hauora';
   @apply text-base tracking-normal leading-normal;
@@ -52,14 +58,155 @@ a {
   color: inherit;
 }
 
-#border {
+#header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  @apply bg-white bg-opacity-85 backdrop-filter backdrop-blur-1.5em;
+}
+
+#header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: calc(100% - (5.75em + 5.75em));
+  height: 0.5px;
+  margin: 0 5.75em;
+  @apply bg-gray bg-opacity-60;
 }
 
 .dot {
   font-family: 'Hauora';
   @apply text-base tracking-wide leading-normal;
 }
+
+#calculator::after {
+  content: '';
+  position: absolute;
+  width: calc( (100vw - 5.75em * 2) / 4 * 2);
+  height: 0.5px;
+  bottom: 4em;
+  left: 50%;
+  transform: translateX(-50%);
+  @apply bg-gray bg-opacity-60;
+}
+
+input {
+  padding-left: 1em;
+  /*max-width: calc(100vw / 5.625);*/
+  background-color: transparent;
+  width: 100%;
+}
+
+select {
+  padding-left: 1em;
+  padding-right: 6.25em;
+  background-color: transparent;
+  -moz-appearance: none; /* Firefox */
+  -webkit-appearance: none; /* Safari and Chrome */
+  appearance: none;
+  position: relative;
+  background: url('./assets/icons/arrow-down.svg') no-repeat;
+  background-position-x: 100%;
+  background-position-y: 50%;
+}
+
+input:focus, input:hover {
+  outline: none;
+}
+
+select:focus, select:hover, select:focus-visible {
+  outline: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none; 
+  appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input[type=date] {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  grid-column-gap: 0.5em;
+  position: relative;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  margin-left: 0;
+  margin-right: 1em;
+  position: relative;
+  color: transparent;
+  background: none;
+  z-index: 1;
+}
+
+input[type="date"]::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-51%);
+  background: url('./assets/icons/calender.svg') center center no-repeat;
+  background-size: 100%;
+  width: 1.25em;
+  height: 1.25em;
+  display: block;
+  @apply text-gray;
+}
+
+input[type="date"]::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: calc(1.25em + 1em);
+  width: 0.5px;
+  height: 100%;
+  @apply bg-gray bg-opacity-60;
+}
+
+/*input[type="date"]::-webkit-calendar-picker-indicator {
+  color: transparent;
+  background: none;
+  z-index: 1;
+}*/
+
+.input-wrapper {
+  @apply flex flex-col items-start gap-y-0.5em;
+}
+
+.input {
+  box-shadow: 3px 3px 16px rgba(0, 9, 88, 0.06);
+  @apply flex flex-row items-center w-full p-1em bg-opacity-85 divide-x-0.5 divide-gray divide-opacity-60 bg-white;
+}
+
+.swap {
+  box-shadow: 3px 3px 16px rgba(0, 9, 88, 0.06);
+  @apply bg-opacity-85 bg-white;
+}
+
+.grid-cols-autofit {
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+}
+
+/*#main {
+  position: relative;
+  width: 100%;
+  height:
+}*/
 
 /* Max Font Size */
 @media screen and (min-width: 1560px) {
@@ -69,8 +216,8 @@ a {
 }
 
 /* Min Font Size */
-@media screen and (max-width: 840px) {
+@media screen and (max-width:990px) {
   body {
-    font-size: 9.333333333333334px;
+    font-size: 11px;
   }
 }

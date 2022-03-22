@@ -9,6 +9,7 @@ export default defineConfig({
           /* 500: '#4b93ff', */
         },
         gray: '#636364',
+        cyan: '#C4F3EF',
       },
       fontFamily: {
         sans: ['Hauora', 'Guaruja Grotesk', 'Neue Machina'],
@@ -17,7 +18,8 @@ export default defineConfig({
         'base': '1em',
         'lg': '1.125em',
         'xl': '1.5em',
-        '2xl': '3.375em',
+        '2xl': '2em',
+        '3xl': '3.375em',
       },
       letterSpacing: {
         normal: '-0.02em',

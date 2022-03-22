@@ -1,7 +1,5 @@
-<header>
-  <div
-    class="relative px-5.75em pt-2.625em w-full flex flex-row items-center justify-between"
-  >
+<header class="fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-1560px mx-auto z-99">
+  <div id="header" class="relative px-5.75em py-2.265em pb-0 flex flex-row items-center justify-center">
     <h6 class="pb-0.5em ml-0 mr-auto">
       <span class="dot">• </span>
       Currency converter
@@ -9,7 +7,7 @@
 
     <div
       class="flex flex-row items-center mr-0 ml-auto pb-0.5em
-    divide-x divide-gray divide-opacity-60 ${px-0.5em} > * "
+      divide-x divide-gray divide-opacity-60"
     >
       <h6 class="px-0.5em">
         Convert
@@ -23,17 +21,15 @@
       <h6 class="px-0.5em">
         <a class="flex flex-row items-center gap-x-0.25em" href="https://www.eestipank.ee/" alt="Estonian bank home" target="_blank">
           Estonian Bank
-          <img src="./assets/icons/caret-45.svg" alt="" class="text-base">
+          <img src='@asset("/assets/icons/caret-45.svg")' alt="" class="w-0.75em h-0.75em">
         </a>
       </h6>
       <h6 class="px-0.5em">
         <a class="flex flex-row items-center gap-x-0.25em" href="https://www.lb.lt/" alt="Lithuanian bank home" target="_blank">
           Lithuanian Bank
-          <img src="./assets/icons/caret-45.svg" alt="" class="text-base">
+          <img src='@asset("/assets/icons/caret-45.svg")' alt="" class="w-0.75em h-0.75em">
         </a>
       </h6>
     </div>
-
-    <div id="border" class="absolute bottom-0 left-5.75em h-0.5px bg-gray bg-opacity-60" />
   </div>
 </header>
