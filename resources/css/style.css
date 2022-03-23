@@ -24,23 +24,23 @@ body {
 h1 {
   /*font-size: 3.375em;*/
   font-family: 'Guaruja Grotesk';
-  @apply text-3xl tracking-normal leading-normal;
+  @apply text-3xl tracking-normal leading-normal font-400;
 }
 
 h3 {
   font-family: 'Guaruja Grotesk';
-  @apply text-xl tracking-normal leading-normal;
+  @apply text-xl tracking-normal leading-normal font-400;
 }
 
 h6 {
   font-family: 'Neue Machina';
   text-transform: uppercase;
-  @apply text-base tracking-wide leading-normal opacity-60;
+  @apply text-base tracking-wide leading-normal opacity-60 font-400;
 }
 
 text {
   font-family: 'Hauora';
-  @apply text-lg tracking-normal leading-normal;
+  @apply text-lg tracking-normal leading-normal font-400;
 }
 
 label {
@@ -50,7 +50,7 @@ label {
 
 p {
   font-family: 'Hauora';
-  @apply text-base tracking-normal leading-normal;
+  @apply text-base tracking-normal leading-normal font-400;
 }
 
 a {
@@ -200,6 +200,20 @@ input[type="date"]::after {
 
 .grid-cols-autofit {
   grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+}
+
+.td {
+  width: calc( ((100vw - 5.75em * 2) - 4em * 2) / 3);
+  @apply py-1em;
+}
+
+.row {
+  @apply border border-transparent border-b-gray border-opacity-60
+  grid grid-cols-3 gap-x-4em;
+}
+
+.footer-headline {
+  min-width: calc( (100% - 4em * 3) / 4 );
 }
 
 /*#main {
