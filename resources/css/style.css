@@ -16,8 +16,8 @@ body {
 }
 
 #app {
-  max-width: 1560px;
-  margin: 0 auto;
+  /*max-width: 1560px;
+  margin: 0 auto;*/
   @apply scroll-smooth;
 }
 
@@ -185,12 +185,12 @@ input[type="date"]::after {
 }*/
 
 .input-wrapper {
-  @apply flex flex-col items-start gap-y-0.5em;
+  @apply flex flex-col items-start gap-y-0.5em <md:w-full;
 }
 
 .input {
   box-shadow: 3px 3px 16px rgba(0, 9, 88, 0.06);
-  @apply flex flex-row items-center w-full p-1em bg-opacity-85 divide-x-0.5 divide-gray divide-opacity-60 bg-white;
+  @apply flex flex-row items-center w-full p-1em <md:p-1.5em bg-opacity-85 divide-x-0.5 divide-gray divide-opacity-60 bg-white;
 }
 
 .swap {
@@ -212,9 +212,9 @@ input[type="date"]::after {
   grid grid-cols-3 gap-x-4em;
 }
 
-.footer-headline {
+/*.footer-headline {
   min-width: calc( (100% - 4em * 3) / 4 );
-}
+}*/
 
 /*#main {
   position: relative;
@@ -233,5 +233,27 @@ input[type="date"]::after {
 @media screen and (max-width:990px) {
   body {
     font-size: 11px;
+  }
+}
+
+@screen <md {
+  #header::after {
+    width: calc(100% - (1.5em + 1.5em));
+    margin: 0 1.5em;
+    @apply bg-gray bg-opacity-60;
+  }
+
+  select {
+    padding-right: calc( (100% - 1em * 2) - 6.75em );
+  }
+
+  #calculator::after {
+    width: calc( (100vw - 1.5em * 2) / 4 * 2);
+  }
+}
+
+@screen <sm {
+  #calculator::after {
+    width: 100%;
   }
 }

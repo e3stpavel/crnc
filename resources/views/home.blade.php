@@ -3,14 +3,15 @@
 @section('content')
 
 {{--TODO: Make all the data dynamic--}}
-<main class="px-5.75em">
-  <div class="w-full h-screen py-5.75em flex flex-row items-end justify-between gap-x-1.5em">
+<main class="max-w-1560px mx-auto px-5.75em <md:px-1.5em">
+  <div class="w-full h-screen py-5.75em flex flex-row items-end justify-between gap-x-1.5em 
+    <md:flex-col <md:items-start <md:justify-end <md:gap-y-1.5em">
     <!--<div class="bg-black w-full h-full" />-->
-    <h1 class="max-w-5/9">
+    <h1 class="max-w-5/9 <md:max-w-none">
       Easily convert from one currency to another using the date
     </h1>
 
-    <div class="flex flex-row items-center gap-x-1em">
+    <div class="flex flex-row items-center gap-x-1em <sm:flex-col <sm:gap-y-1em <md:items-start">
       <img src='@asset("assets/icons/star.svg")' alt="" class="w-2em h-2em">
       <text>
         Simply type in the amount, choose the currency and the date to use it as a reference for the currency rate
@@ -18,14 +19,16 @@
     </div>
   </div>
 
-  <div class="w-full h-screen px-6.25em py-5.75em flex flex-col items-start justify-evenly">
+  <div class="w-full h-screen px-6.25em py-5.75em flex flex-col items-start justify-evenly
+    <md:px-0 <md:h-auto">
     <h1>
       Currency converter
     </h1>
 
     <div id="calculator" class="relative w-full h-auto py-4em">
-      <form class="flex flex-col w-full items-center gap-y-1em pb-4em" action="" method="post">
-        <div class="grid grid-flow-col grid-cols-autofit items-center gap-x-1.5em">
+      <form class="flex flex-col w-full items-center gap-y-1em pb-4em <md:gap-y-1.5em" action="" method="post">
+        <div class="grid grid-flow-col grid-cols-autofit items-center gap-x-1.5em
+          <md:flex <md:flex-col <md:w-full <md:gap-y-1.5em">
           <!-- Amount field -->
           <div class="input-wrapper">
             <label for="amount">Amount</label>
@@ -62,7 +65,8 @@
             </div>
           </div>
         </div>
-        <div class="flex flex-row items-center gap-x-1.5em">
+
+        <div class="flex flex-row items-center gap-x-1.5em <md:flex-col <md:items-start <md:gap-y-1.5em <md:w-full">
           <!-- From field -->
           <div class="input-wrapper">
             <label for="from">From currency</label>
@@ -79,7 +83,7 @@
           <!-- Swap button -->
           <div class="input-wrapper h-full">
             <text class="invisible">Helper</text>
-            <button onclick="swapCurrencies()" class="swap p-1.25em">
+            <button onclick="swapCurrencies()" class="swap p-1.25em <md:p-1.75em <md:mx-auto">
               <img src='@asset("assets/icons/exchange.svg")' alt="" class="w-1em h-1em">
             </button>
           </div>
@@ -142,13 +146,16 @@
 
     <div class="mt-4em text-left w-full flex flex-col border-t border-t-gray border-opacity-60">
       <div class="row">
-        <div class="td"><h6>Currency code</h6></div>
-        <div class="td"><h6>Currency name</h6></div>
-        <div class="td"><h6>Currency rate</h6></div>
+        <div class="td <sm:hidden"><h6>Currency code</h6></div>
+        <div class="td <sm:hidden"><h6>Currency name</h6></div>
+        <div class="td <sm:hidden"><h6>Currency rate</h6></div>
+        <div class="td hidden <sm:block"><h6>Code</h6></div>
+        <div class="td hidden <sm:block"><h6>Name</h6></div>
+        <div class="td hidden <sm:block"><h6>Rate</h6></div>
       </div>      
       <div class="row">
         <div class="td flex flex-row gap-x-1em">
-          <div class="w-1.5em h-1.5em rounded-full mt-0.09375em bg-gray"></div>
+          <div class="w-1.5em h-1.5em rounded-full mt-0.09375em bg-gray <sm:hidden"></div>
           <h3>Aud</h3>
         </div>
         <div class="td"><h3>Australian dollar</h3></div>

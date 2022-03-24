@@ -4,4 +4,5 @@
     "source.fixAll.eslint": true
   },
   "editor.formatOnSave": false,
+  "css.validate": false
 }

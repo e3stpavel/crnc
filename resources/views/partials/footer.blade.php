@@ -1,5 +1,5 @@
-<footer>
-  <div class="flex flex-col p-5.75em w-full bg-black text-white border-b border-b-white border-opacity-60">
+<footer class="max-w-none w-full bg-black text-white">
+  <div class="flex flex-col max-w-1560px mx-auto p-5.75em w-full border-b border-b-white border-opacity-60">
     <div class="grid grid-cols-4 gap-x-4em items-baseline border-b border-b-white border-opacity-60">
       <h1 class="footer-headline">That's all</h1>
       <h6 class="footer-headline">Sections</h6>

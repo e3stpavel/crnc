@@ -28,6 +28,12 @@ export default defineConfig({
       lineHeight: {
         normal: '1.25em',
       },
+      screens: {
+        // eslint-disable-next-line quote-props
+        'md': '834px',
+        // eslint-disable-next-line quote-props
+        'sm': '414px',
+      },
     },
   },
   extract: {
