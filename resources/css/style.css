@@ -7,6 +7,10 @@
   margin: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-size: 1.1111111111111112vw;
   font-family: 'Hauora', ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
@@ -16,9 +20,32 @@ body {
 }
 
 #app {
-  /*max-width: 1560px;
-  margin: 0 auto;*/
-  @apply scroll-smooth;
+  width: 100%;
+  height: auto;
+  position: relative;
+}
+
+#app::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background: url('./assets/images/background.png') no-repeat;
+  background-size: 100%;
+}
+
+#app::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  @apply bg-blue-100 bg-opacity-75 backdrop-filter backdrop-blur-1em;
 }
 
 h1 {
@@ -65,7 +92,8 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  @apply bg-white bg-opacity-85 backdrop-filter backdrop-blur-1.5em;
+  z-index: -1;
+  @apply bg-transparent backdrop-filter backdrop-blur-1.5em;
 }
 
 #header::after {
@@ -76,7 +104,12 @@ a {
   width: calc(100% - (5.75em + 5.75em));
   height: 0.5px;
   margin: 0 5.75em;
+  z-index: 1;
   @apply bg-gray bg-opacity-60;
+}
+
+#header > div > h6 {
+  transition: opacity 0.3s ease-in;
 }
 
 .dot {
@@ -113,6 +146,7 @@ select {
   background: url('./assets/icons/arrow-down.svg') no-repeat;
   background-position-x: 100%;
   background-position-y: 50%;
+  background-size: 1em;
 }
 
 input:focus, input:hover {
@@ -212,16 +246,6 @@ input[type="date"]::after {
   grid grid-cols-3 gap-x-4em;
 }
 
-/*.footer-headline {
-  min-width: calc( (100% - 4em * 3) / 4 );
-}*/
-
-/*#main {
-  position: relative;
-  width: 100%;
-  height:
-}*/
-
 /* Max Font Size */
 @media screen and (min-width: 1560px) {
   body {
@@ -230,13 +254,18 @@ input[type="date"]::after {
 }
 
 /* Min Font Size */
-@media screen and (max-width:990px) {
+@media screen and (max-width: 990px) {
   body {
     font-size: 11px;
   }
 }
 
 @screen <md {
+  #app::before {
+    background: url('./assets/images/background@0.5x.png') no-repeat center top;
+    background-size: 200%;
+  }
+
   #header::after {
     width: calc(100% - (1.5em + 1.5em));
     margin: 0 1.5em;
@@ -244,7 +273,7 @@ input[type="date"]::after {
   }
 
   select {
-    padding-right: calc( (100% - 1em * 2) - 6.75em );
+    padding-right: calc( (100% - 1em * 2) - 6.5em );
   }
 
   #calculator::after {
@@ -255,5 +284,12 @@ input[type="date"]::after {
 @screen <sm {
   #calculator::after {
     width: 100%;
+  }
+}
+
+@screen 2xl {
+  #app::before {
+    background: url('./assets/images/background@2x.png') no-repeat;
+    background-size: calc(100% - 0em);
   }
 }

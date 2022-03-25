@@ -21,6 +21,7 @@
 </head>
 <body>
   <div id="app">
+    @include('partials.header-overlay')
     @include('partials.header')
     @yield('content')
     @include('partials.footer')

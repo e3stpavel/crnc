@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@antfu/eslint-config": "^0.18.9",
-    "eslint": "^8.11.0"
+    "eslint": "^8.11.0",
+    "gsap": "^3.9.1"
   }
 }
