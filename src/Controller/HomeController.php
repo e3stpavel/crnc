@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Model\Currency;
+use App\Util\Storage;
 use App\Util\View;
 use Exception;
 
@@ -13,9 +15,11 @@ class HomeController
      */
     public static function index(): void
     {
-        // $name = array("who" => "my", "what" => "knees");
-        $name = array("my", "god");
+        Currency::load(new \DateTime('now'));
 
-        View::show('home', $name, "name");
+        Storage::put("hi", ["name" => "bruh", "age" => 12]);
+        $json = Storage::get("hi");
+
+        View::show('home', ["data" => $json]);
     }
 }

@@ -1,6 +1,7 @@
 import path from 'path'
 import { defineConfig } from 'vite'
 import WindiCSS from 'vite-plugin-windicss'
+import LiveReload from 'vite-plugin-live-reload'
 
 export default defineConfig({
   resolve: {
@@ -10,6 +11,7 @@ export default defineConfig({
   },
   plugins: [
     WindiCSS(),
+    LiveReload('resources/views/**/*.blade.php'),
   ],
   build: {
     manifest: true,

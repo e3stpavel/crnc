@@ -10,5 +10,5 @@ $router = new Router($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
 try {
     $router->call();
 } catch (Exception $e) {
-    echo "server error";
+    echo "Server error: " . $e->getMessage();
 }
