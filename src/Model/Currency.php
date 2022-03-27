@@ -41,6 +41,22 @@ class Currency
     }
 
     /**
+     * Get the EUR Currency
+     * @return Currency
+     * @throws Exception
+     */
+    public static function base(): Currency
+    {
+        return new Currency(
+            "EUR",
+            "Euro",
+            1,
+            new DateTime(self::manage(new DateTime('now'))),
+            "european_union"
+        );
+    }
+
+    /**
      * Manages time and returns string with date format Y-m-d
      * @param DateTime $date
      * @return string
@@ -216,10 +232,10 @@ class Currency
     /**
      * Picks the currency by its key (looking for in the Storage, if not found doing load)
      * @param string $key
-     * @return Currency
+     * @return Currency|null
      * @throws Exception
      */
-    public static function pick(string $key): Currency
+    public static function pick(string $key): Currency | null
     {
         $currency = Storage::get($key);
 
@@ -235,6 +251,9 @@ class Currency
             $currency = Storage::get($key);
         }
 
+        if ($currency === null) {
+            return null;
+        }
         // assign to the Currency interface
         return self::assign($currency);
     }

@@ -137,7 +137,7 @@ input {
 
 select {
   padding-left: 1em;
-  padding-right: 6.25em;
+  padding-right: 2.265em;
   background-color: transparent;
   -moz-appearance: none; /* Firefox */
   -webkit-appearance: none; /* Safari and Chrome */
@@ -273,7 +273,7 @@ input[type="date"]::after {
   }
 
   select {
-    padding-right: calc( (100% - 1em * 2) - 6.5em );
+    padding-right: calc( 100% - 17em );
   }
 
   #calculator::after {

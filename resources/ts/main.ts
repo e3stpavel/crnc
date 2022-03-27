@@ -5,6 +5,7 @@ import '~/css/style.css'
 import 'windi-utilities.css'
 // import 'virtual:windi-devtools'
 import { headerOverlay, hideHeaderOverlay, highlightCurrentItem, overlayToggle, showHeaderOverlay } from './header'
+import { validate, form, updateSelects } from "./form"
 
 document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('scroll', () => {
@@ -20,6 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   headerOverlay.addEventListener('click', () => {
     hideHeaderOverlay()
+  })
+
+  form.addEventListener('input', () => {
+    updateSelects()
+    validate()
   })
 })
 

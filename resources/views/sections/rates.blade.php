@@ -31,7 +31,7 @@
             <img
               src="https://hatscripts.github.io/circle-flags/flags/{{ $currency->getFlag() }}.svg"
               class="w-full h-full"
-              alt=""
+              alt="{{ strtoupper($currency->getFlag()) }}"
             >
           </div>
           <h3>{{ $currency->getCode() }}</h3>

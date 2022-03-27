@@ -6,11 +6,18 @@
     Currency converter
   </h1>
 
+  @if(isset($_POST['errors']))
+    @foreach($_POST['errors'] as $error)
+      <p>{{ $error }}</p>
+    @endforeach
+  @endif
+
   <div id="calculator" class="relative w-full h-auto py-4em">
     <form
       class="flex flex-col w-full items-center gap-y-1em pb-4em <md:gap-y-1.5em"
-      action="" method="post"
+      action="/" method="post"
     >
+      @csrf
       <div
         class="grid grid-flow-col grid-cols-autofit items-center gap-x-1.5em
         <md:flex <md:flex-col <md:w-full <md:gap-y-1.5em"
@@ -19,12 +26,13 @@
         <div class="input-wrapper">
           <label for="amount">Amount</label>
           <div class="input">
-            <text class="font-600 uppercase text-gray pr-1em">
-              USD
+            <text id="selected-currency" class="font-600 uppercase text-gray pr-1em">
+              EUR
             </text>
             <input
               id="amount" type="number" name="amount"
               inputmode="decimal" autocomplete="off" placeholder="1.00"
+              required
             >
           </div>
         </div>
@@ -34,7 +42,7 @@
           <label for="date">Date</label>
           <div class="input divide-x-none">
             <input
-              id="date" type="date" name="date" class="pl-0 uppercase"
+              id="date" type="date" name="date" class="pl-0 uppercase" required
             >
           </div>
         </div>
@@ -58,10 +66,26 @@
           <label for="from">From currency</label>
           <div class="input">
             <div class="w-1.5em h-1.5em rounded-full mr-1em bg-gray">
-              <!--<img class="w-full h-full" src='@asset("favicon.svg")' alt="">-->
+              <img
+                src="https://hatscripts.github.io/circle-flags/flags/european_union.svg" alt=""
+                class="w-full h-full select-flag"
+              >
             </div>
-            <select id="from" name="from">
-              <option>EUR – <span class="text-gray">Euro</span></option>
+            <select id="from" name="from" required>
+              <option
+                value="{{ $euro->getCode() }}"
+                id="0~{{ $euro->getFlag() }}"
+              >
+                {{ $euro->getCode() }} – {{ $euro->getName() }}
+              </option>
+              @foreach($currencies as $currency)
+                <option
+                  value="{{ $currency->getCode() }}"
+                  id="0~{{ $currency->getFlag() }}"
+                >
+                  {{ $currency->getCode() }} – {{ $currency->getName() }}
+                </option>
+              @endforeach
             </select>
           </div>
         </div>
@@ -81,16 +105,30 @@
           <label for="to">To currency</label>
           <div class="input">
             <div class="w-1.5em h-1.5em rounded-full mr-1em bg-gray">
-              <!--<img class="w-full h-full" src='@asset("favicon.svg")' alt="">-->
+              <img
+                src="https://hatscripts.github.io/circle-flags/flags/european_union.svg" alt=""
+                class="w-full h-full select-flag"
+              >
             </div>
-            <select id="to" name="to">
-              <option>EUR – <span class="text-gray">Euro</span></option>
+            <select id="to" name="to" required>
+              <option
+                value="{{ $euro->getCode() }}"
+                id="1~{{ $euro->getFlag() }}"
+              >
+                {{ $euro->getCode() }} – {{ $euro->getName() }}
+              </option>
+              @foreach($currencies as $currency)
+                <option
+                  value="{{ $currency->getCode() }}"
+                  id="1~{{ $currency->getFlag() }}"
+                >
+                  {{ $currency->getCode() }} – {{ $currency->getName() }}
+                </option>
+              @endforeach
             </select>
           </div>
         </div>
       </div>
-
-      <input type="submit" value="" class="hidden">
     </form>
   </div>
 
