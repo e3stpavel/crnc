@@ -9,15 +9,15 @@ use Exception;
 
 class Currency
 {
-    public string $code;
+    private string $code;
 
-    public string $name;
+    private string $name;
 
-    public float $rate;
+    private float $rate;
 
-    public DateTime $date;
+    private DateTime $date;
 
-    public string $flag;
+    private string $flag;
 
     /**
      * @param string $code
@@ -40,33 +40,22 @@ class Currency
         $this->flag = $flag;
     }
 
-
-    public static function create(array $values): void
-    {
-        // create a currency instance and place to the Storage
-        // TODO: assign raw array to an object and put it into the storage
-        // use key like date:code, example 25-03-2022:AUD
-    }
-
-    // TODO: get all currencies or by key
-    // TODO: check if exist in Storage if not load from api
-    /*
-    public static function get(string $key): Currency
-    {
-        return new Currency();
-    }*/
-
     /**
+     * Manages time and returns string with date format Y-m-d
+     * @param DateTime $date
+     * @return string
      * @throws Exception
      */
-    public static function load(DateTime $date): void
+    public static function manage(DateTime $date): string
     {
         // check if now and move back in time
-        $requested = $date->setTimezone(new DateTimeZone('Europe/Helsinki'))->format('Y-m-d');
+        $date = $date->setTimezone(new DateTimeZone('Europe/Helsinki'));
+        $requested = $date->format('Y-m-d');
         $now = new DateTime('now', new DateTimeZone('Europe/Helsinki'));
         $current = $now->format('Y-m-d');
 
-        if ($current === $requested) {
+        // if today or requested date is in future
+        if ($current === $requested || $now < $date) {
             // goto previous day
             $requested = date('Y-m-d', strtotime("-1 days"));
 
@@ -82,11 +71,23 @@ class Currency
             }
         }
 
+        return $requested;
+    }
+
+    /**
+     * Loads the collection of currencies for specific date
+     * @param DateTime $date
+     * @throws Exception
+     */
+    public static function load(DateTime $date): void
+    {
+        $date = self::manage($date);
+
         // Eesti pank link
-        $etBankApi = "https://haldus.eestipank.ee/en/export/currency_rates?imported=$requested&type=csv";
+        $etBankApi = "https://haldus.eestipank.ee/en/export/currency_rates?imported=$date&type=csv";
 
         // Lithuanian bank link
-        $ltBankApi = "https://www.lb.lt/en/currency/daylyexport/?csv=1&class=Eu&type=day&date_day=$requested";
+        $ltBankApi = "https://www.lb.lt/en/currency/daylyexport/?csv=1&class=Eu&type=day&date_day=$date";
 
         // process rates from Eesti pank
         $etRatesRaw = file_get_contents($etBankApi);
@@ -115,9 +116,6 @@ class Currency
             }
         }
 
-        /*var_dump($ltRates);
-        var_dump($etRates);*/
-
         // form the objects from this api data
         // assume that arrays has the same length cuz they use same data provider
         for ($i = 0; $i < count($etRates); $i++) {
@@ -130,17 +128,195 @@ class Currency
                 'flag' => strtolower(substr($ltRates[$i]['code'], 0, -1))
             ];
 
-            var_dump($currency);
             // creating object
             self::create($currency);
         }
-
-        die();
     }
 
-    /*public function exchangeToEur(): Currency
+    /**
+     * Creating the currency object instance in Storage from associative array
+     * @param array $values
+     */
+    public static function create(array $values): void
     {
-        // $now = new DateTime('now');
-        $eur = new Currency($now);
-    }*/
+        // create a currency instance and place to the Storage
+        // use key like date:code, example 25-03-2022:AUD
+        Storage::put(
+            $values['date']->format('Y-m-d') . ':' . $values['code'],
+            [
+                'name' => $values['name'],
+                'rate' => $values['rate'],
+                'flag' => $values['flag']
+            ]
+        );
+    }
+
+    /**
+     * Assign raw array from Storage::get() to Currency interface
+     * @param array $values
+     * @return Currency
+     * @throws Exception
+     */
+    public static function assign(array $values): Currency
+    {
+        // get the key
+        $key = array_keys($values)[0];
+
+        // get the other values
+        $values = $values[$key];
+        $key = explode(":", $key);
+
+        // get the date and the code
+        $date = $key[0];
+        $code = $key[1];
+
+        return new Currency(
+            $code,
+            $values['name'],
+            $values['rate'],
+            new DateTime($date, new DateTimeZone('Europe/Helsinki')),
+            $values['flag']
+        );
+    }
+
+    /**
+     * Gets all Currencies by specific date
+     * @param DateTime $date
+     * @return array
+     * @throws Exception
+     */
+    public static function get(DateTime $date): array
+    {
+        $date = self::manage($date);
+
+        $currencies = Storage::getAll($date);
+        $result = [];
+
+        // check if exists in the Storage
+        if ($currencies === []) {
+            // if not load the list for specific date
+            $d = new DateTime($date, new DateTimeZone('Europe/Helsinki'));
+            self::load($d);
+
+            // get list of currencies from Storage
+            $currencies = Storage::getAll($date);
+        }
+
+        // assign all currencies to the Currency interface
+        foreach ($currencies as $currency) {
+            array_push($result, self::assign($currency));
+        }
+
+        // sort in ascending order by value
+        asort($result);
+
+        return $result;
+    }
+
+    /**
+     * Picks the currency by its key (looking for in the Storage, if not found doing load)
+     * @param string $key
+     * @return Currency
+     * @throws Exception
+     */
+    public static function pick(string $key): Currency
+    {
+        $currency = Storage::get($key);
+
+        // check if exists in the Storage
+        if ($currency === null) {
+            // if not load the list for specific date
+            $date = explode(":", $key)[0];
+            $date = new DateTime($date, new DateTimeZone('Europe/Helsinki'));
+
+            self::load($date);
+
+            // get from the Storage
+            $currency = Storage::get($key);
+        }
+
+        // assign to the Currency interface
+        return self::assign($currency);
+    }
+
+    // Getters and Setters //
+    /**
+     * @return string
+     */
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     */
+    public function setCode(string $code): void
+    {
+        $this->code = $code;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return float
+     */
+    public function getRate(): float
+    {
+        return $this->rate;
+    }
+
+    /**
+     * @param float $rate
+     */
+    public function setRate(float $rate): void
+    {
+        $this->rate = $rate;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getDate(): DateTime
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param DateTime $date
+     */
+    public function setDate(DateTime $date): void
+    {
+        $this->date = $date;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFlag(): string
+    {
+        return $this->flag;
+    }
+
+    /**
+     * @param string $flag
+     */
+    public function setFlag(string $flag): void
+    {
+        $this->flag = $flag;
+    }
 }

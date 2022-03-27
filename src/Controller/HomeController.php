@@ -3,23 +3,21 @@
 namespace App\Controller;
 
 use App\Model\Currency;
-use App\Util\Storage;
 use App\Util\View;
+use DateTime;
 use Exception;
 
 class HomeController
 {
     /**
+     * Index page (loads all today's currencies if not exists in the Storage)
      * @return void
      * @throws Exception
      */
     public static function index(): void
     {
-        Currency::load(new \DateTime('now'));
+        $currencies = Currency::get(new DateTime('now'));
 
-        Storage::put("hi", ["name" => "bruh", "age" => 12]);
-        $json = Storage::get("hi");
-
-        View::show('home', ["data" => $json]);
+        View::show('home', ['currencies' => $currencies]);
     }
 }

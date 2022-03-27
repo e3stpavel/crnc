@@ -2,9 +2,9 @@
 
 namespace App\Util;
 
+use Exception;
 use Redis;
 use Redislabs\Module\RedisJson\RedisJson;
-use Spatie\Async\Pool;
 
 class Storage
 {
@@ -41,39 +41,80 @@ class Storage
 
     /**
      * @param string $key
-     * @return array
+     * @return array|null
      */
-    public static function get(string $key): array
+    public static function get(string $key): array | null
     {
         $redisJson = self::getRedisJson();
 
-        return $redisJson->get($key, '.');
+        try {
+            $result = $redisJson->mget($key, '.');
+        } catch (Exception $exception) {
+            // TODO: write to logs
+            $result = null;
+        }
+
+        return $result;
     }
 
-    /*public function getAll(array $keys): array
+    /**
+     * @param string $pattern
+     * @return array
+     */
+    public static function getAll(string $pattern = ""): array
     {
-    }
+        $redisJson = self::getRedisJson();
+        $redisClient = $redisJson->getClient();
 
-    public function getValue(string $key, string $field): mixed
-    {
-    }*/
+        // stupid workaround because it's not working with variables
+        $keys = $redisClient->keys("*");
+        $filtered = [];
+        $pattern = iconv(
+            mb_detect_encoding($pattern, mb_detect_order(), true),
+            "UTF-8",
+            $pattern
+        );
+
+        foreach ($keys as $key) {
+            // different encodings, fix that
+            $key = iconv(
+                mb_detect_encoding((string) $key, mb_detect_order(), true),
+                "UTF-8",
+                (string) $key
+            );
+
+            if (str_contains($key, $pattern) || $pattern === "") {
+                array_push($filtered, $key);
+            }
+        }
+
+        try {
+            $result = [];
+            foreach ($filtered as $key) {
+                $result[] = $redisJson->mget($key, ".");
+            }
+        } catch (Exception $exception) {
+            // TODO: write to logs
+            $result = [];
+        }
+
+        return $result;
+    }
 
     /**
      * @param string $key
      * @param array $values
      */
-    public static function put(string $key, array $values):void
+    public static function put(string $key, array $values): void
     {
         $redisJson = self::getRedisJson();
 
         $redisJson->set($key, '.', $values);
     }
 
-    /*
-    public function set(string $key, string $field, mixed $value): void
-    {
-    }*/
-
+    /**
+     * Development purposes only
+     */
     public static function flush(): void
     {
         $redisJson = self::getRedisJson();

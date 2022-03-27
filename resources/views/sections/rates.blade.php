@@ -24,17 +24,25 @@
         <h6>Rate</h6>
       </div>
     </div>
-    <div class="row">
-      <div class="td flex flex-row gap-x-1em">
-        <div class="w-1.5em h-1.5em rounded-full mt-0.09375em bg-gray <sm:hidden"></div>
-        <h3>Aud</h3>
+    @foreach($currencies as $currency)
+      <div class="row">
+        <div class="td flex flex-row gap-x-1em">
+          <div class="w-1.5em h-1.5em rounded-full mt-0.09375em bg-gray <sm:hidden">
+            <img
+              src="https://hatscripts.github.io/circle-flags/flags/{{ $currency->getFlag() }}.svg"
+              class="w-full h-full"
+              alt=""
+            >
+          </div>
+          <h3>{{ $currency->getCode() }}</h3>
+        </div>
+        <div class="td">
+          <h3>{{ $currency->getName() }}</h3>
+        </div>
+        <div class="td">
+          <h3>{{ $currency->getRate() }}</h3>
+        </div>
       </div>
-      <div class="td">
-        <h3>Australian dollar</h3>
-      </div>
-      <div class="td">
-        <h3>1.45</h3>
-      </div>
-    </div>
+    @endforeach
   </div>
 </div>
