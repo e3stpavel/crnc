@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\Currency;
+use App\Util\Storage;
 use App\Util\View;
 use DateTime;
 use Exception;
@@ -16,10 +17,23 @@ class HomeController
      */
     public static function index(): void
     {
-        $currencies = Currency::get(new DateTime('now'));
+        Currency::load(new DateTime('2023-04-05'));
+        die();
+
+        /*$currencies = Currency::get(new DateTime('now'));
         $euro = Currency::base();
 
-        View::show('home', ['currencies' => $currencies, 'euro' => $euro]);
+        View::show('home', ['currencies' => $currencies, 'euro' => $euro]);*/
+    }
+
+    /**
+     * Clearing up all data in the Storage
+     * TODO: Remove this method
+     */
+    public static function flush(): void
+    {
+        Storage::flush();
+        echo 'DB is clean';
     }
 
     public static function validateCurrency(string $currency, DateTime $date): false | Currency

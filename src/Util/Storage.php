@@ -65,33 +65,15 @@ class Storage
     {
         $redisJson = self::getRedisJson();
         $redisClient = $redisJson->getClient();
+        $pattern = utf8_encode($pattern);
 
-        // stupid workaround because it's not working with variables
-        $keys = $redisClient->keys("*");
-        $filtered = [];
-        $pattern = iconv(
-            mb_detect_encoding($pattern, mb_detect_order(), true),
-            "UTF-8",
-            $pattern
-        );
-
-        foreach ($keys as $key) {
-            // different encodings, fix that
-            $key = iconv(
-                mb_detect_encoding((string) $key, mb_detect_order(), true),
-                "UTF-8",
-                (string) $key
-            );
-
-            if (str_contains($key, $pattern) || $pattern === "") {
-                array_push($filtered, $key);
-            }
-        }
+        $keys = $redisClient->keys("*$pattern*");
 
         try {
             $result = [];
-            foreach ($filtered as $key) {
-                $result[] = $redisJson->mget($key, ".");
+
+            foreach ($keys as $key) {
+                $result[] = $redisJson->mget($key, '.');
             }
         } catch (Exception $exception) {
             // TODO: write to logs

@@ -71,7 +71,8 @@ class Currency
         $current = $now->format('Y-m-d');
 
         // if today or requested date is in future
-        if ($current === $requested || $now < $date) {
+        // no need to check for future cuz api checks it
+        if ($current === $requested /*|| $now < $date*/) {
             // goto previous day
             $requested = date('Y-m-d', strtotime("-1 days"));
 
@@ -105,8 +106,10 @@ class Currency
         // Lithuanian bank link
         $ltBankApi = "https://www.lb.lt/en/currency/daylyexport/?csv=1&class=Eu&type=day&date_day=$date";
 
-        // process rates from Eesti pank
         $etRatesRaw = file_get_contents($etBankApi);
+        $ltRatesRaw = file_get_contents($ltBankApi);
+
+        // process rates from Eesti pank
         $etRatesRaw = explode("\n", $etRatesRaw);
         $etRates = [];
         for ($i = 0; $i < count($etRatesRaw) - 1; $i++) {
@@ -117,7 +120,6 @@ class Currency
         }
 
         // process rates from Lithuanian bank
-        $ltRatesRaw = file_get_contents($ltBankApi);
         $ltRatesRaw = explode("\n", $ltRatesRaw);
         $ltRates = [];
         for ($i = 0; $i < count($ltRatesRaw) - 1; $i++) {
@@ -126,20 +128,25 @@ class Currency
                 array_push($ltRates, [
                     'name' => str_replace('"', "", $temp[0]),
                     'code' => str_replace('"', "", $temp[1]),
-                    'rate' => str_replace('"', "", $temp[2]),
+                    'rate' => floatval(str_replace(
+                        ',',
+                        '.',
+                        str_replace('"', "", $temp[2])
+                    )),
                     'date' => str_replace('"', "", $temp[3]),
                 ]);
             }
         }
 
         // form the objects from this api data
-        // assume that arrays has the same length cuz they use same data provider
-        for ($i = 0; $i < count($etRates); $i++) {
+        // assume that arrays has the same length cuz they use same data provider,
+        // but Estonian bank do not provide if data is in future!!!
+        for ($i = 0; $i < count($ltRates); $i++) {
             // form an object containing all the Currency model fields
             $currency = [
                 'code' => $ltRates[$i]['code'],
                 'name' => $ltRates[$i]['name'],
-                'rate' => $etRates[$ltRates[$i]['code']],
+                'rate' => count($etRates) > 0 ? $etRates[$ltRates[$i]['code']] : $ltRates[$i]['rate'],
                 'date' => new DateTime($ltRates[$i]['date'], new DateTimeZone('Europe/Helsinki')),
                 'flag' => strtolower(substr($ltRates[$i]['code'], 0, -1))
             ];

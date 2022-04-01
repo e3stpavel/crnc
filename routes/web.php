@@ -9,3 +9,7 @@ Router::get('/', [HomeController::class, 'index']);
 
 // POST routes
 Router::post('/', [HomeController::class, 'validate']);
+
+// development use only routes
+// TODO: Remove dev routes
+Router::get('/flush', [HomeController::class, 'flush']);
