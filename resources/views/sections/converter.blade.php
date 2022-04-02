@@ -6,12 +6,6 @@
     Currency converter
   </h1>
 
-  @if(isset($_POST['errors']))
-    @foreach($_POST['errors'] as $error)
-      <p>{{ $error }}</p>
-    @endforeach
-  @endif
-
   <div id="calculator" class="relative w-full h-auto py-4em">
     <form
       class="flex flex-col w-full items-center gap-y-1em pb-4em <md:gap-y-1.5em"

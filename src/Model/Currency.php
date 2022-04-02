@@ -73,13 +73,10 @@ class Currency
         // if today or requested date is in future
         // no need to check for future cuz api checks it
         if ($current === $requested /*|| $now < $date*/) {
-            // goto previous day
-            $requested = date('Y-m-d', strtotime("-1 days"));
-
             // if time is not 13:00 yet
             if (intval($now->format('G')) <= 13) {
-                // goto two days before
-                $requested = date('Y-m-d', strtotime("-2 days"));
+                // goto previous day
+                $requested = date('Y-m-d', strtotime("-1 days"));
             }
 
             // if weekend goto Friday
@@ -214,6 +211,9 @@ class Currency
 
         $currencies = Storage::getAll($date);
         $result = [];
+        if ($_SESSION['latest_date'] === null) {
+            $_SESSION['latest_date'] = date('Y-m-d');
+        }
 
         // check if exists in the Storage
         if ($currencies === []) {
@@ -223,6 +223,27 @@ class Currency
 
             // get list of currencies from Storage
             $currencies = Storage::getAll($date);
+
+            // if list still is empty and date is now
+            // loop till get the latest data
+            if (date('Y-m-d', strtotime($date)) === date('Y-m-d') && $currencies === null) {
+                // use cache first
+                $currencies = Storage::getAll($_SESSION['latest_date']);
+
+                // but if not found loop till get latest
+                $i = 1;
+                while ($currencies === [] && $_SESSION['latest_date'] === null) {
+                    $date = date('Y-m-d', strtotime("-$i days"));
+                    $currencies = Storage::getAll($date);
+
+                    // put it in to the Cache
+                    if ($currencies !== []) {
+                        $_SESSION['latest_date'] = $date;
+                    }
+
+                    $i++;
+                }
+            }
         }
 
         // assign all currencies to the Currency interface
@@ -233,6 +254,7 @@ class Currency
         // sort in ascending order by value
         asort($result);
 
+        // if result is empty array then throw an error to user
         return $result;
     }
 
@@ -261,8 +283,45 @@ class Currency
         if ($currency === null) {
             return null;
         }
+
         // assign to the Currency interface
+        // if result is NULL then throw an error to user
         return self::assign($currency);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function validate(string $code, string $date): bool
+    {
+        $currency = self::pick("$date:$code");
+
+        if ($_SESSION['latest_date'] === null) {
+            $_SESSION['latest_date'] = date('Y-m-d');
+        }
+
+        // if date is now and currency not
+        if (date('Y-m-d', strtotime($date)) === date('Y-m-d') && $currency === null) {
+            // look for the latest in Storage
+            $i = 1;
+            while ($currency === []) {
+                $date = date('Y-m-d', strtotime("-$i days"));
+                $currency = self::pick("$date:$code");
+
+                if ($currency !== null) {
+                    $_SESSION['latest_date'] = $date;
+                }
+
+                $i++;
+            }
+        }
+
+        // if currency not found then return false
+        if ($currency === null) {
+            return false;
+        }
+
+        return true;
     }
 
     // Getters and Setters //

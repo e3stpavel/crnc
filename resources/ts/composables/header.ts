@@ -1,11 +1,5 @@
 import { Power2, gsap } from 'gsap'
-import { body, main } from './composables'
-
-export const headerOverlay = document.querySelector<HTMLDivElement>('#header-overlay')!
-
-export const overlayToggle = document.querySelector<HTMLImageElement>('#toggle-overlay')!
-
-export const header = document.querySelector<HTMLDivElement>('#header')!
+import { body, header, headerOverlay, main, overlayToggle } from './elements'
 
 const timeline = gsap.timeline({
   paused: true,
@@ -21,7 +15,7 @@ timeline.from(headerOverlay, {
   transformOrigin: 'bottom',
 })
 
-export const showHeaderOverlay = () => {
+const showHeaderOverlay = () => {
   // open the overlay
   headerOverlay.classList.replace('hidden', 'fixed')
 
@@ -34,7 +28,7 @@ export const showHeaderOverlay = () => {
   overlayToggle.src = 'assets/icons/close.svg'
 }
 
-export const hideHeaderOverlay = () => {
+const hideHeaderOverlay = () => {
   // play animation
   timeline.reverse()
 
@@ -50,7 +44,7 @@ export const hideHeaderOverlay = () => {
   body.classList.remove('overflow-hidden')
 }
 
-export const highlightCurrentItem = () => {
+const highlightCurrentItem = () => {
   const sections: HTMLCollection = main.children
 
   for (let i = 0; i < sections.length; i++) {
@@ -78,4 +72,21 @@ export const highlightCurrentItem = () => {
       item.style.zIndex = '1'
     }
   }
+}
+
+export const headerBehaviour = () => {
+  document.addEventListener('scroll', () => {
+    highlightCurrentItem()
+  })
+
+  overlayToggle.addEventListener('click', () => {
+    if (headerOverlay.classList.contains('fixed') && overlayToggle.src.includes('close.svg'))
+      hideHeaderOverlay()
+    else
+      showHeaderOverlay()
+  })
+
+  headerOverlay.addEventListener('click', () => {
+    hideHeaderOverlay()
+  })
 }

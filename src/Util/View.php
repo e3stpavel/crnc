@@ -17,7 +17,7 @@ class View
      * @param string $varsName If array is sequential, then provide a name which will be available in blade file
      * @throws Exception
      */
-    public static function show(string $name, array $vars = [], string $varsName = "vars"): void
+    public static function show(string $name, array $vars = [], string $varsName = "vars"): BladeOne
     {
         $blade = new BladeOne(self::$views, self::$cache, BladeOne::MODE_DEBUG);
 
@@ -34,6 +34,7 @@ class View
         }
 
         echo $blade->run();
+        return $blade;
     }
 
     private static function isVarsAssoc(array $vars): bool
