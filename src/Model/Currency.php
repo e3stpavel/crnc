@@ -238,20 +238,6 @@ class Currency
             if (date('Y-m-d', strtotime($date)) === date('Y-m-d') && $currencies === null) {
                 // use cache first
                 $currencies = Storage::getAll($_SESSION['latest_date']);
-
-                // but if not found loop till get latest
-//                $i = 1;
-//                while ($currencies === [] && $_SESSION['latest_date'] === null) {
-//                    $date = date('Y-m-d', strtotime("-$i days"));
-//                    $currencies = Storage::getAll($date);
-//
-//                    // put it in to the Cache
-//                    if ($currencies !== []) {
-//                        $_SESSION['latest_date'] = $date;
-//                    }
-//
-//                    $i++;
-//                }
             }
         }
 
@@ -297,27 +283,6 @@ class Currency
         // if result is NULL then throw an error to user
         return self::assign($currency);
     }
-
-    /**
-     * @throws Exception
-     */
-//    public static function validate(string $code, string $date): bool
-//    {
-//        $currency = self::pick("$date:$code");
-//
-//        // if date is now and currency is null
-//        if (date('Y-m-d', strtotime($date)) === date('Y-m-d') && $currency === null) {
-//            // look for the latest in Storage
-//            $currency = self::pick($_SESSION['latest_date'] . ":$code");
-//        }
-//
-//        // if currency not found then return false
-//        if ($currency === null) {
-//            return false;
-//        }
-//
-//        return true;
-//    }
 
     // Getters and Setters //
     /**

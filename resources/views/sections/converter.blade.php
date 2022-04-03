@@ -1,6 +1,6 @@
 <div
   id="converter" class="w-full h-screen px-6.25em py-5.75em flex flex-col items-start justify-evenly
-  <md:px-1.5em <md:h-auto"
+  <md:px-0 <md:h-auto"
 >
   <h1>
     Currency converter
@@ -11,7 +11,7 @@
       class="flex flex-col w-full items-center gap-y-1em pb-4em <md:gap-y-1.5em"
       action="/" method="post"
     >
-      @csrf
+      <input type="hidden" name="token" value="{{ $token }}" />
       <div
         class="grid grid-flow-col grid-cols-autofit items-center gap-x-1.5em
         <md:flex <md:flex-col <md:w-full <md:gap-y-1.5em"
@@ -25,7 +25,7 @@
             </text>
             <input
               id="amount" type="number" name="amount"
-              inputmode="decimal" autocomplete="off" placeholder="1.00"
+              inputmode="decimal" step="0.00001" autocomplete="off" placeholder="1.00"
               required
             >
           </div>
@@ -37,6 +37,7 @@
           <div class="input divide-x-none">
             <input
               id="date" type="date" name="date" class="pl-0 uppercase" required
+              value="{{ $date }}"
             >
           </div>
         </div>
@@ -48,7 +49,7 @@
             <img src="@asset('assets/icons/cash.svg')" alt="" class="w-1.25em h-1.25em mr-1em">
             <input
               id="rate" class="pointer-events-none" type="number"
-              name="rate" inputmode="decimal" autocomplete="off" value="1.00"
+              name="rate" inputmode="decimal" autocomplete="off" value="1.00" disabled
             >
           </div>
         </div>
@@ -89,9 +90,9 @@
           <text class="invisible">
             Helper
           </text>
-          <button onclick="swapCurrencies()" class="swap p-1.25em <md:p-1.75em <md:mx-auto">
+          <div id="swap" class="swap p-1.25em cursor-pointer <md:p-1.75em <md:mx-auto">
             <img src="@asset('assets/icons/exchange.svg')" alt="" class="w-1em h-1em">
-          </button>
+          </div>
         </div>
 
         <!-- To field -->
@@ -130,9 +131,9 @@
     <text class="font-600 pb-0.25em">
       Result
     </text>
-    <h1>100 Euro</h1>
-    <p class="text-gray uppercase">
-      1 EUR = 1 EUR, 22/03/2022
+    <h1 id="result">1 Euro</h1>
+    <p id="result-rate" class="text-gray uppercase">
+      1 EUR = 1 EUR,
     </p>
   </div>
 </div>

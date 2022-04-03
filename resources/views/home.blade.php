@@ -1,8 +1,7 @@
 @extends('layout')
-@section('title', 'Home')
+@section('title', 'Currency converter')
 @section('content')
 
-{{--TODO: Make all the data dynamic--}}
 <main class="max-w-1560px mx-auto px-5.75em <md:px-1.5em">
   @include('sections.introduction')
   @include('sections.converter')

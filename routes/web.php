@@ -10,7 +10,6 @@ Router::get('/', [HomeController::class, 'index']);
 // POST routes
 Router::post('/', [HomeController::class, 'count']);
 Router::post('/rate', [HomeController::class, 'rate']);
-Router::get('/rate', [HomeController::class, 'rate']);
 
 // development use only routes
 // TODO: Remove dev routes

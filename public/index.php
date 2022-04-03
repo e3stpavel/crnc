@@ -12,6 +12,7 @@ session_start();
 if ($_SESSION['token'] === null) {
     $_SESSION['token'] = uniqid('e3', true);
 }
+// using latest_date variable for storing cache of latest available currencies date
 if ($_SESSION['latest_date'] === null) {
     $_SESSION['latest_date'] = date('Y-m-d', strtotime('today'));
 }

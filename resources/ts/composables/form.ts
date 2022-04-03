@@ -7,6 +7,10 @@ import api from './api'
 // TODO: Add default amount value to showcase the result --- DONE!
 // TODO: Check if value greater than 0 or if not show lazy load
 // TODO: Find out why code stops working when errors occurred --- FIXED!
+// TODO: Stylize the 404 page
+// TODO: Add custom favicon --- DONE!
+// TODO: Dockerized the app
+// TODO: Get rid of unnecessary files
 
 const update = () => {
   // update selects images
