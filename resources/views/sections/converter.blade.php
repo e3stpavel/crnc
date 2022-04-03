@@ -1,6 +1,6 @@
 <div
   id="converter" class="w-full h-screen px-6.25em py-5.75em flex flex-col items-start justify-evenly
-  <md:px-0 <md:h-auto"
+  <md:px-1.5em <md:h-auto"
 >
   <h1>
     Currency converter

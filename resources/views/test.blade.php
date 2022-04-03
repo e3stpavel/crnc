@@ -4,7 +4,7 @@
 
   <div
     id="converter" class="w-full h-screen px-6.25em py-5.75em flex flex-col items-start justify-evenly
-    <md:px-0 <md:h-auto"
+    <md:px-1.5em <md:h-auto"
   >
     <h1>
       Currency converter
@@ -29,7 +29,7 @@
               </text>
               <input
                 id="amount" type="number" name="amount"
-                inputmode="decimal" autocomplete="off" placeholder="1.00"
+                inputmode="decimal" step="0.00001" autocomplete="off" placeholder="1.00"
                 required
               >
             </div>
@@ -135,9 +135,9 @@
       <text class="font-600 pb-0.25em">
         Result
       </text>
-      <h1 id="result">100 Euro</h1>
+      <h1 id="result">1 Euro</h1>
       <p id="result-rate" class="text-gray uppercase">
-        1 EUR = 1 EUR, 22/03/2022
+        1 EUR = 1 EUR,
       </p>
     </div>
   </div>

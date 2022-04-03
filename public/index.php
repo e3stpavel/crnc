@@ -12,6 +12,9 @@ session_start();
 if ($_SESSION['token'] === null) {
     $_SESSION['token'] = uniqid('e3', true);
 }
+if ($_SESSION['latest_date'] === null) {
+    $_SESSION['latest_date'] = date('Y-m-d', strtotime('today'));
+}
 
 try {
     $router->call();

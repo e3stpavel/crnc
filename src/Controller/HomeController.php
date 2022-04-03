@@ -22,6 +22,9 @@ class HomeController
         $_SESSION['currencies'] = Currency::get(new DateTime('now'));
         $_SESSION['euro'] = Currency::base();
 
+        var_dump($_SESSION['latest_date']);
+        // die();
+
         // View::show('home', ['currencies' => $_SESSION['currencies'], 'euro' => $_SESSION['euro']]);
         View::show('test', [
             'currencies' => $_SESSION['currencies'],
@@ -61,18 +64,28 @@ class HomeController
             $errors = [];
 
             // from currency
-            if (!Currency::validate($from, $date) && $from !== 'EUR') {
-                $errors[] = 'Provided from currency is not valid!';
+            $fromCurrency = Currency::base();
+            if ($from !== 'EUR') {
+                $fromCurrency = Currency::pick("$date:$from");
+            }
+
+            if ($fromCurrency === null) {
+                $errors[] = 'Initial currency for specific date has not been found';
             }
 
             // to currency
-            if (!Currency::validate($to, $date) && $to !== 'EUR') {
-                $errors[] = 'Provided to currency is not valid!';
+            $toCurrency = Currency::base();
+            if ($to !== 'EUR') {
+                $toCurrency = Currency::pick("$date:$to");
+            }
+
+            if ($toCurrency === null) {
+                $errors[] = 'To currency for specific date has not been found';
             }
 
             // amount
             if (strval((float) $amount) !== $amount) {
-                $errors[] = 'Provided amount is not a valid float number';
+                $errors[] = 'Provided amount is not a valid float number (use dot .)';
             }
             if (floatval($amount) <= 0) {
                 $errors[] = 'Provided amount must be greater than 0';
@@ -100,15 +113,6 @@ class HomeController
             // x EUR = 2,3 ATT
             // x = 2,3 / 1,5
             $amount = floatval($amount);
-            $fromCurrency = Currency::base();
-            if ($from !== 'EUR') {
-                $fromCurrency = Currency::pick("$date:$from");
-            }
-
-            $toCurrency = Currency::base();
-            if ($to !== 'EUR') {
-                $toCurrency = Currency::pick("$date:$to");
-            }
 
             $fromRate = $fromCurrency->getRate();
             $toRate = $toCurrency->getRate();
@@ -158,22 +162,23 @@ class HomeController
             $date = $values->date;
 
             // validate the values
-            if (!Currency::validate($from, $date) && $from !== 'EUR') {
+            $currency = Currency::base();
+            if ($from !== 'EUR') {
+                $currency = Currency::pick("$date:$from");
+            }
+
+            if ($currency === null) {
                 header('Content-type: application/json');
                 echo json_encode(array(
                     'value' => 0,
                     'errors' => [
-                        'Provided currency is not valid!'
+                        'Currency for specific date has not been found',
                     ],
                 ));
                 return;
             }
 
             // get the rate
-            $currency = Currency::base();
-            if ($from !== 'EUR') {
-                $currency = Currency::pick("$date:$from");
-            }
             $rate = $currency->getRate();
 
             header('Content-type: application/json');

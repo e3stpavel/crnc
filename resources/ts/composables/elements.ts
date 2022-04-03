@@ -34,3 +34,7 @@ export const result = document.querySelector<HTMLHeadingElement>('#result')!
 export const rate = document.querySelector<HTMLParagraphElement>('#result-rate')!
 
 export const token = document.querySelector<HTMLInputElement>('[name="token"]')!
+
+export const errorsWrapper = document.querySelector<HTMLParagraphElement>('#errors-wrapper')!
+
+export const errors = document.querySelector<HTMLParagraphElement>('#errors-context')!

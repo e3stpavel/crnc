@@ -4,9 +4,9 @@ import { render as ResultRender } from '../handling/result'
 import { date, form, images, input, result, selects, swapTrigger, text, token } from './elements'
 import api from './api'
 
-// TODO: Add default amount value to showcase the result
+// TODO: Add default amount value to showcase the result --- DONE!
 // TODO: Check if value greater than 0 or if not show lazy load
-// TODO: Find out why code stops working when errors occurred
+// TODO: Find out why code stops working when errors occurred --- FIXED!
 
 const update = () => {
   // update selects images
@@ -51,7 +51,30 @@ const request = async(endpoint: string, values: object): Promise<number | null> 
   return response
 }
 
+const preload = () => {
+  const date = new Date()
+  ResultRender('1', 1, 'EUR', 'EUR', 'EUR – Euro', date.toISOString())
+}
+
+const dispatchForm = () => {
+  // dispatch the form element
+  const event = new Event('input')
+  form.dispatchEvent(event)
+}
+
+const dispatchSelects = () => {
+  // dispatch the form element
+  const event = new Event('change')
+  const elements = [selects[0], date]
+  elements.forEach((element) => {
+    element.dispatchEvent(event)
+  })
+}
+
 export const formBehaviour = () => {
+  // from data preload
+  preload()
+
   // form handling
   form.addEventListener('input', async(e) => {
     e.preventDefault()
@@ -102,7 +125,8 @@ export const formBehaviour = () => {
     const temp: string = selects[0].value
     selects[0].value = selects[1].value
     selects[1].value = temp
-    update()
+    dispatchForm()
+    dispatchSelects()
   })
 }
 
