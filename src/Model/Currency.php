@@ -83,6 +83,11 @@ class Currency
             if ($now->format('N') >= 6) {
                 $requested = date('Y-m-d', strtotime("friday this week"));
             }
+
+            // if Monday
+            if ($now->format('N') == 1) {
+                $requested = date('Y-m-d', strtotime("friday last week"));
+            }
         }
 
         return $requested;
@@ -95,12 +100,6 @@ class Currency
      */
     public static function load(DateTime $date): void
     {
-        // add to save date flag
-        $flag = false;
-        if ($date->format('Y-m-d') === date('Y-m-d', strtotime('now'))) {
-            $flag = true;
-        }
-
         $date = self::manage($date);
 
         // Eesti pank link
@@ -156,12 +155,6 @@ class Currency
 
             // creating object
             self::create($currency);
-        }
-
-        // save the date to the latest_date
-        if ($flag) {
-            $d = new DateTime($ltRates[0]['date'], new DateTimeZone('Europe/Helsinki'));
-            $_SESSION['latest_date'] = $d->format('Y-m-d');
         }
     }
 
@@ -219,7 +212,19 @@ class Currency
      */
     public static function get(DateTime $date): array
     {
+        // add to save date flag
+        $flag = false;
+        if ($date->format('Y-m-d') === date('Y-m-d', strtotime('now'))) {
+            $flag = true;
+        }
+
         $date = self::manage($date);
+
+        // save the date to the latest_date
+        if ($flag) {
+            $_SESSION['latest_date'] = $date;
+            // var_dump($_SESSION['latest_date']);
+        }
 
         $currencies = Storage::getAll($date);
         $result = [];
