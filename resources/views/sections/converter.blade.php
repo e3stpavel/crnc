@@ -37,7 +37,7 @@
           <div class="input divide-x-none">
             <input
               id="date" type="date" name="date" class="pl-0 uppercase" required
-              value="{{ $date }}"
+              value="{{ $date }}" data-date="{{ date('d/m/Y', strtotime($date)) }}"
             >
           </div>
         </div>

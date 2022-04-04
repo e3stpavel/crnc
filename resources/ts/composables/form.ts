@@ -66,6 +66,17 @@ const dispatchForm = () => {
   form.dispatchEvent(event)
 }
 
+const datepicker = () => {
+  date.addEventListener('change', (e) => {
+    const element = <HTMLInputElement>e.target
+    const now = new Date(element.value)
+    const datetime = now.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' })
+    const parts = datetime.split('/')
+
+    element.setAttribute('data-date', `${parts[1]}/${parts[0]}/${parts[2]}`)
+  })
+}
+
 const dispatchSelects = () => {
   // dispatch the form element
   const event = new Event('change')
@@ -78,6 +89,9 @@ const dispatchSelects = () => {
 export const formBehaviour = () => {
   // from data preload
   preload()
+
+  // custom date format in datepicker
+  datepicker()
 
   // form handling
   form.addEventListener('input', async(e) => {
@@ -133,63 +147,3 @@ export const formBehaviour = () => {
     dispatchSelects()
   })
 }
-
-// export const datepicker = () => {
-//   // setting the datepicker
-//   const today = new Date()
-//   const month = (today.getMonth() + 1) < 10 ? `0${(today.getMonth() + 1)}` : today.getMonth() + 1
-//   const day = today.getDate() < 10 ? `0${today.getDate()}` : today.getDate()
-//   date.value = `${today.getFullYear()}-${month}-${day}`
-// }
-
-// export const rates = () => {
-//   // update the rates on datepicker change
-//   date.addEventListener('change', async() => {
-//     // try request
-//     const response = await fetch('http://localhost:8080/', {
-//       method: 'POST',
-//       headers: {
-//         'content-type': 'application/json;charset=UTF-8',
-//       },
-//     })
-//
-//     const data = response.json()
-//     if (!response.ok)
-//       throw new Error(response.statusText)
-//
-//     data.then((res: Object) => {
-//       console.log(res)
-//     })
-//   })
-// }
-
-// for (let i = 0; i < selects.length; i++) {
-//   selects[i].addEventListener('change', (e: Event) => {
-//     const select = <HTMLSelectElement>e.target!
-//     const option = select.options[select.selectedIndex]
-//
-//     // images for select fields
-//     const keys = option.id.split('~')
-//     const index: number = Number.parseInt(keys[0])
-//
-//     images[index].src = `https://hatscripts.github.io/circle-flags/flags/${keys[1]}.svg`
-//
-//     // text for input field
-//     if (select.id === 'from')
-//       text.innerText = option.value
-//   })
-// }
-
-/* export const updateInput = () => {
-  const input = document.querySelector<HTMLInputElement>('#amount')
-  const display = document.querySelector<HTMLInputElement>('#rate')
-
-  input.addEventListener('change', () => {
-
-  })
-} */
-
-// export const validate = () => {
-//   if (form.checkValidity())
-//     form.submit()
-// }

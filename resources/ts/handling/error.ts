@@ -4,6 +4,7 @@ import { errors as errorsContext, errorsWrapper } from '../composables/elements'
 export const render = (errors: string[]) => {
   gsap.set(errorsWrapper, {
     clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
+    translateY: 25,
     display: 'none',
   })
 
@@ -24,11 +25,13 @@ export const render = (errors: string[]) => {
     })
     .to(errorsWrapper, {
       clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+      translateY: 0,
       transformOrigin: 'bottom center',
     })
     .to(errorsWrapper, {
       clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
       transformOrigin: 'bottom center',
+      translateY: 25,
       delay: 5,
     })
     .set(errorsWrapper, {

@@ -1,4 +1,4 @@
-version: "3"
+version: "3.7"
 
 services:
   redisjson:
@@ -6,3 +6,9 @@ services:
     image: "redislabs/rejson:latest"
     ports:
       - "6379:6379"
+
+  vite:
+    container_name: node
+    image: "node:latest"
+    ports:
+      - "3000:3000"

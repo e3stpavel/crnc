@@ -188,28 +188,43 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   z-index: 1;
 }
 
+input[type="date"]::-webkit-datetime-edit,
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-clear-button {
+  visibility: hidden;
+}
+
 input[type="date"]::before {
   content: '';
   position: absolute;
   top: 50%;
   left: 0;
   transform: translateY(-51%);
-  background: url('./assets/icons/calender.svg') center center no-repeat;
+  background: url('./assets/icons/calender-line.svg') center center no-repeat;
   background-size: 100%;
-  width: 1.25em;
-  height: 1.25em;
-  display: block;
+  width: 2em;
+  height: 2em;
+  display: flex;
+  flex-direction: row;
   @apply text-gray;
 }
 
 input[type="date"]::after {
-  content: '';
+  content: attr(data-date);
+  position: absolute;
+  top: 57%;
+  transform: translateY(-50%);
+  left: calc(2em + 1em);
+  d: path('M.25,24h-.5V0h.5Z');
+  height: 100%;
+  @apply bg-opacity-60;
+  /*content: '';
   position: absolute;
   top: 0;
   left: calc(1.25em + 1em);
   width: 0.5px;
-  height: 100%;
-  @apply bg-gray bg-opacity-60;
+  height: 100%;*/
+  /*@apply bg-gray bg-opacity-60;*/
 }
 
 /*input[type="date"]::-webkit-calendar-picker-indicator {
