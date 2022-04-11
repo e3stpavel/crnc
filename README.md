@@ -1,95 +1,43 @@
-IGBinary https://windows.php.net/downloads/pecl/releases/igbinary/3.2.7/
-PHPRedis https://windows.php.net/downloads/pecl/releases/redis/5.3.7rc2/
-RedisJson https://github.com/averias/phpredis-json, https://github.com/mkorkmaz/redislabs-rejson
+# Currency converter
+__PHP Composer based project__
 
+## Composer packages used
+[IGBinary]('https://windows.php.net/downloads/pecl/releases/igbinary/3.2.7/') - don't use btw
 
-Added session, using fetch
-form.ts
-`export const form = document.querySelector<HTMLFormElement>('#calculator > form')!
+[PHPRedis]('https://windows.php.net/downloads/pecl/releases/redis/5.3.7rc2/') - important, need to install in `php.ini`
 
-export const selects = [
-document.querySelector<HTMLSelectElement>('#from')!,
-document.querySelector<HTMLSelectElement>('#to')!,
-]
+[RedisJson from Averias]('https://github.com/averias/phpredis-json') - deprecated, just looking at the syntax
 
-export const input = document.querySelector<HTMLInputElement>("#amount")!
-export const datepicker = document.querySelector<HTMLInputElement>("#date")!
+[RedisJson from mkorkmaz]('https://github.com/mkorkmaz/redislabs-rejson') - using in project
 
-const images = document.querySelectorAll<HTMLImageElement>('.select-flag')!
-const text = document.querySelector<HTMLParagraphElement>('#selected-currency')!
+PHPUnit - will use it maybe
 
-export const updateSelects = () => {
+## NodeJS packages used
+* ESLint
+* WindiCSS
+* Vite Live Reload
+* GSAP
+* TypeScript
 
-for (let i = 0; i < selects.length; i++) {
-selects[i].addEventListener('change', (e: Event) => {
-const select = <HTMLSelectElement>e.target!
-const option = select.options[select.selectedIndex]
+## TODOs 
+* ~~Make the framework setup up and running~~ 
+* ~~Design and implement UI~~
+* ~~Make the converter work~~
+* ~~Implement some flag API~~
+* ~~Consume the bank's API~~
+* ~~Cache the data from API to the Storage~~
+* Clear up the code a bit
+* Make the API consuming structure more flexible
+* Add the lazy load to make UX more convenient
+* Dockerize the app
+* Make some unit test using PHPUnit
+* Make some integration tests
+* Clear up the README a bit
+* Add production build support (read Vite Manifest)
+* Add the license
 
-      // images for select fields
-      const keys = option.id.split('~')
-      const index: number = Number.parseInt(keys[0])
+## License
+none
 
-      images[index].src = `https://hatscripts.github.io/circle-flags/flags/${keys[1]}.svg`
-
-      // text for input field
-      if (select.id === 'from')
-        text.innerText = option.value
-    })
-}
-}
-
-/*export const updateInput = () => {
-const input = document.querySelector<HTMLInputElement>('#amount')
-const display = document.querySelector<HTMLInputElement>('#rate')
-
-input.addEventListener('change', () => {
-
-})
-}*/
-
-export const swapCurrencies = () => {
-const swap = document.querySelector<HTMLDivElement>('#swap')!
-
-swap.addEventListener('click', () => {
-const temp: string = selects[0].value
-selects[0].value = selects[1].value
-selects[1].value = temp
-
-    for (let i = 0; i < selects.length; i++) {
-      const select = <HTMLSelectElement>selects[i]!
-      const option = select.options[select.selectedIndex]
-
-      // images for select fields
-      const keys = option.id.split('~')
-      const index: number = Number.parseInt(keys[0])
-
-      images[index].src = `https://hatscripts.github.io/circle-flags/flags/${keys[1]}.svg`
-
-      // text for input field
-      if (select.id === 'from')
-        text.innerText = option.value
-    }
-})
-}
-
-export const validate = () => {
-input.addEventListener('focusout', () => {
-if (datepicker.checkValidity()) {
-if (form.checkValidity()) {
-console.log("sending...")
-form.submit()
-}
-}
-})
-
-datepicker.addEventListener('focusout', () => {
-if (input.checkValidity()) {
-if (form.checkValidity()) {
-console.log("sending...")
-form.submit()
-}
-}
-})
-}
-`
-
+## Creator
+Pavel Mayorov
