@@ -30,6 +30,12 @@ class View
                 $vars = array($varsName => $vars);
             }
 
+            // adding here some necessary vars for View
+            $vars['manifest'] = Manifest::read('resources/ts/main.ts');
+            $vars['date'] = $_SESSION['latest_date'];
+            $vars['token'] = $_SESSION['token'];
+            $vars['mode'] = $_SESSION['mode'];
+
             $blade->share($vars);
         }
 

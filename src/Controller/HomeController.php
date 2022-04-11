@@ -24,8 +24,6 @@ class HomeController
         View::show('home', [
             'currencies' => $_SESSION['currencies'],
             'euro' => $_SESSION['euro'],
-            'date' => $_SESSION['latest_date'],
-            'token' => $_SESSION['token'],
         ]);
 //        View::show('test', [
 //            'currencies' => $_SESSION['currencies'],

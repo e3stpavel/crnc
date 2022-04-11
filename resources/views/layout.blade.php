@@ -10,14 +10,16 @@
   <link rel="preload" href="./assets/fonts/Neue-Machina-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="./assets/fonts/Hauora-Regular.woff2" as="font" type="font/woff2" crossorigin>
 
-  {{--Only For Development Use --}}
-  <script type="module" src="http://localhost:3000/@vite/client"></script>
-  <script type="module" src="http://localhost:3000/resources/ts/main.ts"></script>
-
-  {{--For Production--}}
-  {{--TODO: figure out how to use and read manifest file in dist folder after the build--}}
-  <!--<link rel="stylesheet" href="/assets/manifest['main.js'].css" />
-  <script type="module" src="/assets/manifest['main.js'].file"></script>-->
+  @if(!$mode)
+    {{--Only For Development Use --}}
+    <script type="module" src="http://localhost:3000/@vite/client"></script>
+    <script type="module" src="http://localhost:3000/resources/ts/main.ts"></script>
+  @else
+    {{--For Production--}}
+    {{--TODO: figure out how to use and read manifest file in dist folder after the build--}}
+    <link rel="stylesheet" href="{{ $manifest['css'] }}" />
+    <script type="module" src="{{ $manifest['file'] }}"></script>
+  @endif
 </head>
 <body>
   <div id="app">

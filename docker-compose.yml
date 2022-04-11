@@ -7,8 +7,8 @@ services:
     ports:
       - "6379:6379"
 
-  vite:
-    container_name: node
-    image: "node:latest"
-    ports:
-      - "3000:3000"
+#  vite:
+#    container_name: node
+#    image: "node:latest"
+#    ports:
+#      - "3000:3000"

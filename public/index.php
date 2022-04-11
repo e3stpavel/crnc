@@ -17,6 +17,14 @@ if (!isset($_SESSION['latest_date']) || $_SESSION['latest_date'] === null) {
     $_SESSION['latest_date'] = date('Y-m-d', strtotime('today'));
 }
 
+// Setting up the mode of application, available development (false) and production (true)
+// If production provide the manifest.json data
+$_SESSION['mode'] = true;
+
+//$record = \App\Util\Manifest::read('resources/ts/main.ts');
+//var_dump($record['css']);
+//die();
+
 try {
     $router->call();
 } catch (Exception $e) {
