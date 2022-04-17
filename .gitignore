@@ -6,6 +6,7 @@
 !.vscode/settings.json
 !test
 compiled
+.env
 
 ### Vite ###
 # Logs
@@ -19,6 +20,7 @@ lerna-debug.log*
 
 node_modules
 dist
+public/dist
 dist-ssr
 *.local
 

@@ -10,15 +10,18 @@
   <link rel="preload" href="./assets/fonts/Neue-Machina-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="./assets/fonts/Hauora-Regular.woff2" as="font" type="font/woff2" crossorigin>
 
-  @if(!$mode)
+  @if($debug)
     {{--Only For Development Use --}}
     <script type="module" src="http://localhost:3000/@vite/client"></script>
     <script type="module" src="http://localhost:3000/resources/ts/main.ts"></script>
   @else
     {{--For Production--}}
-    {{--TODO: figure out how to use and read manifest file in dist folder after the build--}}
-    <link rel="stylesheet" href="{{ $manifest['css'] }}" />
-    <script type="module" src="{{ $manifest['file'] }}"></script>
+    @foreach($manifest['css'] as $css)
+      <link rel="stylesheet" href="dist/{{ $css }}" />
+    @endforeach
+
+    {{--TODO: Fix routes somehow--}}
+    <script type="module" src="dist/{{ $manifest['file'] }}"></script>
   @endif
 </head>
 <body>

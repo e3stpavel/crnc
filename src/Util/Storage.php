@@ -11,26 +11,21 @@ class Storage
     private RedisJson $redisJson;
 
     /**
-     * @param string $host Optional, default value is 127.0.0.1
-     * @param int $port Optional, default value is 6379
      * @return RedisJson
      */
-    public static function getRedisJson(string $host = "", int $port = 0): RedisJson
+    public static function getRedisJson(): RedisJson
     {
         $storage = new Storage();
-        if ($host !== "" || $port !== 0) {
-            $storage = new Storage($host, $port);
-        }
 
         return $storage->redisJson;
     }
 
-    /**
-     * @param string $host
-     * @param int $port
-     */
-    public function __construct(string $host = "127.0.0.1", int $port = 6379)
+    public function __construct()
     {
+        // Get host and port
+        $host = $_ENV['REDIS_HOST'];
+        $port = $_ENV['REDIS_PORT'];
+
         // Connect to Redis storage
         $redisClient = new Redis();
         $redisClient->connect($host, $port);

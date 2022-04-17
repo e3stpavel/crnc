@@ -31,10 +31,16 @@ class View
             }
 
             // adding here some necessary vars for View
-            $vars['manifest'] = Manifest::read('resources/ts/main.ts');
+            $vars['debug'] = true;
+            $vars['manifest'] = ['css' => 'here'];
             $vars['date'] = $_SESSION['latest_date'];
             $vars['token'] = $_SESSION['token'];
-            $vars['mode'] = $_SESSION['mode'];
+
+            // if app is in debug
+            if (!filter_var($_ENV['APP_DEBUG'], FILTER_VALIDATE_BOOLEAN)) {
+                $vars['debug'] = false;
+                $vars['manifest'] = Manifest::read('resources/ts/main.ts');
+            }
 
             $blade->share($vars);
         }

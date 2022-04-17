@@ -18,6 +18,7 @@ export default defineConfig({
     rollupOptions: {
       input: 'resources/ts/main.ts',
     },
+    outDir: 'public/dist/',
   },
   publicDir: 'public/',
 })

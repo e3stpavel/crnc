@@ -18,12 +18,9 @@ class HomeController
      */
     public static function index(): void
     {
-        $_SESSION['currencies'] = Currency::get(new DateTime('now'));
-        $_SESSION['euro'] = Currency::base();
-
         View::show('home', [
-            'currencies' => $_SESSION['currencies'],
-            'euro' => $_SESSION['euro'],
+            'currencies' => Currency::get(new DateTime('now')),
+            'euro' => Currency::base(),
         ]);
 //        View::show('test', [
 //            'currencies' => $_SESSION['currencies'],

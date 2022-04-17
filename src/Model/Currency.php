@@ -102,47 +102,16 @@ class Currency
     {
         $date = self::manage($date);
 
-        // Eesti pank link
-        $etBankApi = "https://haldus.eestipank.ee/en/export/currency_rates?imported=$date&type=csv";
+        // getting Estonian Bank rates
+        $EBConsumer = new EBConsumer($date);
+        $etRates = $EBConsumer->get();
 
-        // Lithuanian bank link
-        $ltBankApi = "https://www.lb.lt/en/currency/daylyexport/?csv=1&class=Eu&type=day&date_day=$date";
-
-        $etRatesRaw = file_get_contents($etBankApi);
-        $ltRatesRaw = file_get_contents($ltBankApi);
-
-        // process rates from Eesti pank
-        $etRatesRaw = explode("\n", $etRatesRaw);
-        $etRates = [];
-        for ($i = 0; $i < count($etRatesRaw) - 1; $i++) {
-            if ($i > 2) {
-                $temp = explode(",", $etRatesRaw[$i]);
-                $etRates[$temp[0]] = floatval($temp[1]);
-            }
-        }
-
-        // process rates from Lithuanian bank
-        $ltRatesRaw = explode("\n", $ltRatesRaw);
-        $ltRates = [];
-        for ($i = 0; $i < count($ltRatesRaw) - 1; $i++) {
-            if ($i > 0) {
-                $temp = explode(";", $ltRatesRaw[$i]);
-                array_push($ltRates, [
-                    'name' => str_replace('"', "", $temp[0]),
-                    'code' => str_replace('"', "", $temp[1]),
-                    'rate' => floatval(str_replace(
-                        ',',
-                        '.',
-                        str_replace('"', "", $temp[2])
-                    )),
-                    'date' => str_replace('"', "", $temp[3]),
-                ]);
-            }
-        }
+        // getting Lithuanian Bank rates
+        $LBConsumer = new LBConsumer($date);
+        $ltRates = $LBConsumer->get();
 
         // form the objects from this api data
         // assume that arrays has the same length cuz they use same data provider,
-        // but Estonian bank do not provide if data is in future!!!
         for ($i = 0; $i < count($ltRates); $i++) {
             // form an object containing all the Currency model fields
             $currency = [
@@ -238,11 +207,28 @@ class Currency
             // get list of currencies from Storage
             $currencies = Storage::getAll($date);
 
-            // if list still is empty and date is now
+            // if list still is empty and date is current's month
             // loop till get the latest data
-            if (date('Y-m-d', strtotime($date)) === date('Y-m-d') && $currencies === null) {
+            if (date('Y-m', strtotime($date)) === date('Y-m') && $currencies === []) {
                 // use cache first
+                self::load(new DateTime($_SESSION['latest_date'], new DateTimeZone('Europe/Helsinki')));
                 $currencies = Storage::getAll($_SESSION['latest_date']);
+
+                // loop if still empty
+                $i = 1;
+                while ($currencies === []) {
+                    $updDate = date('Y-m-d', strtotime($date . " -$i days"));
+
+                    self::load(new DateTime($updDate, new DateTimeZone('Europe/Helsinki')));
+                    $currencies = Storage::getAll($updDate);
+
+                    if (count($currencies) > 0) {
+                        $_SESSION['latest_date'] = date('Y-m-d', strtotime($date . " -$i days"));
+                        break;
+                    }
+
+                    $i++;
+                }
             }
         }
 
