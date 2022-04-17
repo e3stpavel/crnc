@@ -29,21 +29,21 @@ class View
             if (!self::isVarsAssoc($vars)) {
                 $vars = array($varsName => $vars);
             }
-
-            // adding here some necessary vars for View
-            $vars['debug'] = true;
-            $vars['manifest'] = ['css' => 'here'];
-            $vars['date'] = $_SESSION['latest_date'];
-            $vars['token'] = $_SESSION['token'];
-
-            // if app is in debug
-            if (!filter_var($_ENV['APP_DEBUG'], FILTER_VALIDATE_BOOLEAN)) {
-                $vars['debug'] = false;
-                $vars['manifest'] = Manifest::read('resources/ts/main.ts');
-            }
-
-            $blade->share($vars);
         }
+
+        // adding here some necessary vars for View
+        $vars['debug'] = true;
+        $vars['manifest'] = ['css' => 'here'];
+        $vars['date'] = $_SESSION['latest_date'];
+        $vars['token'] = $_SESSION['token'];
+
+        // if app is in debug
+        if (!filter_var($_ENV['APP_DEBUG'], FILTER_VALIDATE_BOOLEAN)) {
+            $vars['debug'] = false;
+            $vars['manifest'] = Manifest::read('resources/ts/main.ts');
+        }
+
+        $blade->share($vars);
 
         echo $blade->run();
         return $blade;

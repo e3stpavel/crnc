@@ -46,7 +46,7 @@
         <div class="input-wrapper">
           <label for="rate">Exchange rate (1 EUR equals)</label>
           <div class="input bg-cyan bg-opacity-45">
-            <img src="@asset('assets/icons/cash.svg')" alt="" class="w-1.25em h-1.25em mr-1em">
+            <img src="@asset('assets/icons/cash.svg')" alt="" class="mr-1em">
             <input
               id="rate" class="pointer-events-none" type="number"
               name="rate" inputmode="decimal" autocomplete="off" value="1.00" disabled

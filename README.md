@@ -26,14 +26,14 @@ PHPUnit - will use it maybe
 * ~~Implement some flag API~~
 * ~~Consume the bank's API~~
 * ~~Cache the data from API to the Storage~~
-* Clear up the code a bit
-* Make the API consuming structure more flexible
+* ~~Clear up the code a bit~~
+* ~~Make the API consuming structure more flexible~~
 * Add the lazy load to make UX more convenient
 * Dockerize the app
 * Make some unit test using PHPUnit
 * Make some integration tests
 * Clear up the README a bit
-* Add production build support (read Vite Manifest)
+* ~~Add production build support (read Vite Manifest)~~
 * Add the license
 
 ## License

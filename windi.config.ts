@@ -9,6 +9,7 @@ export default defineConfig({
           /* 500: '#4b93ff', */
         },
         gray: '#636364',
+        grey: '#F1F1F1',
         cyan: '#C4F3EF',
       },
       fontFamily: {

@@ -242,6 +242,12 @@ input[type="date"]::after {
   @apply flex flex-row items-center w-full p-1em <md:p-1.5em bg-opacity-85 divide-x-0.5 divide-gray divide-opacity-60 bg-white;
 }
 
+.button {
+  box-shadow: 3px 3px 16px rgba(0, 9, 88, 0.06);
+  @apply flex flex-row items-center justify-between p-1.25em <md:p-1.5em bg-opacity-85 bg-white
+  hover:bg-opacity-100 hover:bg-grey transition;
+}
+
 .swap {
   box-shadow: 3px 3px 16px rgba(0, 9, 88, 0.06);
   @apply bg-opacity-85 bg-white;
