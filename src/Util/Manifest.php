@@ -14,7 +14,7 @@ class Manifest
     public static function read(string $name, string $path = 'dist'): array
     {
         // get the path to the manifest
-        $src = __DIR__ . "\\..\\..\\public\\$path\\manifest.json";
+        $src = __DIR__ . "\\..\\..\\public\\manifest.json";
 
         // get the manifest data
         $json = file_get_contents($src);

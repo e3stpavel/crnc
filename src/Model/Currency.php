@@ -190,7 +190,7 @@ class Currency
         $date = self::manage($date);
 
         // save the date to the latest_date
-        if ($flag) {
+        if ($flag && $_SESSION['latest_date'] === date('Y-m-d')) {
             $_SESSION['latest_date'] = $date;
             // var_dump($_SESSION['latest_date']);
         }

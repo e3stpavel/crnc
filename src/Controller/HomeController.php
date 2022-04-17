@@ -22,16 +22,11 @@ class HomeController
             'currencies' => Currency::get(new DateTime('now')),
             'euro' => Currency::base(),
         ]);
-//        View::show('test', [
-//            'currencies' => $_SESSION['currencies'],
-//            'euro' => $_SESSION['euro'],
-//            'date' => $_SESSION['latest_date'],
-//            'token' => $_SESSION['token']]);
     }
 
     /**
      * Clearing up all data in the Storage
-     * TODO: Remove this method
+     * TODO: Remove this method in production
      */
     public static function flush(): void
     {

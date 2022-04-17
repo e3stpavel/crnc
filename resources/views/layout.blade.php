@@ -17,11 +17,10 @@
   @else
     {{--For Production--}}
     @foreach($manifest['css'] as $css)
-      <link rel="stylesheet" href="dist/{{ $css }}" />
+      <link rel="stylesheet" href="{{ $css }}" />
     @endforeach
 
-    {{--TODO: Fix routes somehow--}}
-    <script type="module" src="dist/{{ $manifest['file'] }}"></script>
+    <script type="module" src="{{ $manifest['file'] }}"></script>
   @endif
 </head>
 <body>
