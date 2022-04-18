@@ -4,12 +4,12 @@ _PHP Composer based project_
 ![Landing](public/markdown/landing.png)
 
 ## Table of Contents
-* [Steps to reproduce](#steps-to-reproduce-img-srchttpsemojipedia-uss3dualstackus-west-1amazonawscomthumbs120apple325ladder_1fa9cpng-altladder-width24-)
-* [How to add new source](#how-to-add-new-source-img-srchttpsemojipedia-uss3dualstackus-west-1amazonawscomthumbs120apple325thinking-face_1f914png-altthinking-face-width24-)
-* [Packages/dependencies used](#packagesdependencies-used-img-srchttpsemojipedia-uss3dualstackus-west-1amazonawscomthumbs120apple325index-pointing-up_261d-fe0fpng-altpointing-up-width24-)
-* [TODOs](#todos-img-srchttpsemojipedia-uss3dualstackus-west-1amazonawscomthumbs120apple325calendar_1f4c5png-altcalendar-width24-)
-* [License](#license-img-srchttpsemojipedia-uss3dualstackus-west-1amazonawscomthumbs120apple325identification-card_1faaapng-altid-width24-)
-* [Credits](#credits-img-srchttpsemojipedia-uss3dualstackus-west-1amazonawscomthumbs120apple325upside-down-face_1f643png-altupside-down-width24-)
+* [Steps to reproduce](#steps-to-reproduce-)
+* [How to add new source](#how-to-add-new-source-)
+* [Packages/dependencies used](#packagesdependencies-used-)
+* [TODOs](#todos-)
+* [License](#license-)
+* [Credits](#credits-)
 
 ## Steps to reproduce <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/325/ladder_1fa9c.png" alt="Ladder" width="24" />
 __You need:__ PHP 8.0, Composer, NodeJS, NPM, Docker (Must have for Storage)
