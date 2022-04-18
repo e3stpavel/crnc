@@ -1,0 +1,16 @@
+{
+  "resources/ts/main.ts": {
+    "file": "main.d7fc333c.js",
+    "src": "resources/ts/main.ts",
+    "isEntry": true,
+    "imports": [
+      "_vendor.96122d15.js"
+    ],
+    "css": [
+      "main.92ed5da5.css"
+    ]
+  },
+  "_vendor.96122d15.js": {
+    "file": "vendor.96122d15.js"
+  }
+}

@@ -78,12 +78,11 @@ class Router
     {
         $match = $this->match();
 
-        $callback = $match['callback'];
-
-        if (isset($callback) && is_callable($callback)) {
-            call_user_func($callback);
-        } elseif (isset($callback) && is_array($callback)) {
+        if (isset($match['callback']) && is_callable($match['callback'])) {
+            call_user_func($match['callback']);
+        } elseif (isset($match['callback']) && is_array($match['callback'])) {
             // call controller method which should return view object
+            $callback = $match['callback'];
             $controllerClass = $callback[0];
             $controllerMethod = $callback[1];
             $controllerObject = new $controllerClass();
